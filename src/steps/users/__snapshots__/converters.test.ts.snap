@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createUserEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "User",
+  ],
+  "_key": "sysdig_user:10001234",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "dateCreated": 1636399070571,
+        "enabled": true,
+        "firstName": "John",
+        "id": 10001234,
+        "lastName": "Doe",
+        "lastSeenOnSecure": 1636466812758,
+        "products": Array [
+          "SDC",
+          "SDS",
+        ],
+        "status": "confirmed",
+        "systemRole": "ROLE_CUSTOMER",
+        "username": "user@email.dev",
+        "version": 2,
+      },
+    },
+  ],
+  "_type": "sysdig_user",
+  "active": undefined,
+  "createdOn": undefined,
+  "dateCreated": 1636399070571,
+  "displayName": "John Doe",
+  "enabled": true,
+  "firstName": "John",
+  "id": "10001234",
+  "lastName": "Doe",
+  "lastSeenOnSecure": 1636466812758,
+  "name": "user@email.dev",
+  "products": Array [
+    "SDC",
+    "SDS",
+  ],
+  "status": "confirmed",
+  "systemRole": "ROLE_CUSTOMER",
+  "username": "user@email.dev",
+  "version": 2,
+}
+`;

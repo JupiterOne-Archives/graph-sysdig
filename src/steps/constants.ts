@@ -5,52 +5,52 @@ import {
 } from '@jupiterone/integration-sdk-core';
 
 export const Steps = {
-  ACCOUNT: 'fetch-account',
+  ACCOUNT: 'fetch-account-details',
   USERS: 'fetch-users',
-  GROUPS: 'fetch-groups',
-  GROUP_USER_RELATIONSHIPS: 'build-user-group-relationships',
+  BUILD_ACCOUNT_AND_USER_RELATIONSHIP: 'build-account-and-user-relationship',
+  TEAMS: 'fetch-teams',
+  BUILD_ACCOUNT_AND_TEAM_RELATIONSHIP: 'build-account-and-team-relationship',
+  BUILD_TEAM_AND_USER_RELATIONSHIP: 'build-team-and-user-relationship',
 };
 
-export const Entities: Record<
-  'ACCOUNT' | 'GROUP' | 'USER',
-  StepEntityMetadata
-> = {
-  ACCOUNT: {
-    resourceName: 'Account',
-    _type: 'acme_account',
-    _class: ['Account'],
-  },
-  GROUP: {
-    resourceName: 'UserGroup',
-    _type: 'acme_group',
-    _class: ['UserGroup'],
-  },
-  USER: {
-    resourceName: 'User',
-    _type: 'acme_user',
-    _class: ['User'],
-  },
-};
+export const Entities: Record<'ACCOUNT' | 'USER' | 'TEAM', StepEntityMetadata> =
+  {
+    ACCOUNT: {
+      resourceName: 'Account',
+      _type: 'sysdig_account',
+      _class: ['Account'],
+    },
+    USER: {
+      resourceName: 'User',
+      _type: 'sysdig_user',
+      _class: ['User'],
+    },
+    TEAM: {
+      resourceName: 'Team',
+      _type: 'sysdig_team',
+      _class: ['Team'],
+    },
+  };
 
 export const Relationships: Record<
-  'ACCOUNT_HAS_USER' | 'ACCOUNT_HAS_GROUP' | 'GROUP_HAS_USER',
+  'ACCOUNT_HAS_USER' | 'ACCOUNT_HAS_TEAM' | 'TEAM_HAS_USER',
   StepRelationshipMetadata
 > = {
   ACCOUNT_HAS_USER: {
-    _type: 'acme_account_has_user',
+    _type: 'sysdig_account_has_user',
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.USER._type,
   },
-  ACCOUNT_HAS_GROUP: {
-    _type: 'acme_account_has_group',
+  ACCOUNT_HAS_TEAM: {
+    _type: 'sysdig_account_has_team',
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
-    targetType: Entities.GROUP._type,
+    targetType: Entities.TEAM._type,
   },
-  GROUP_HAS_USER: {
-    _type: 'acme_group_has_user',
-    sourceType: Entities.GROUP._type,
+  TEAM_HAS_USER: {
+    _type: 'sysdig_team_has_user',
+    sourceType: Entities.TEAM._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.USER._type,
   },

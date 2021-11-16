@@ -1,19 +1,19 @@
 import { StepSpec } from '@jupiterone/integration-sdk-core';
 import { IntegrationConfig } from '../../../../src/config';
 
-export const accountSpec: StepSpec<IntegrationConfig>[] = [
+export const usersSpec: StepSpec<IntegrationConfig>[] = [
   {
     /**
      * ENDPOINT: n/a
      * PATTERN: Singleton
      */
-    id: 'fetch-account-details',
-    name: 'Fetch Account Details',
+    id: 'fetch-users',
+    name: 'Fetch Users',
     entities: [
       {
-        resourceName: 'Account',
-        _type: 'sysdig_account',
-        _class: ['Account'],
+        resourceName: 'User',
+        _type: 'sysdig_user',
+        _class: ['User'],
       },
     ],
     relationships: [],
