@@ -122,8 +122,8 @@ Object {
             "id": 10006755,
             "intercomUserIdHash": "6ffd280509637cc4221ceeb32aad9847065ec4f2b4a40aa27f194c51a2b32e86",
             "lastName": "Virag",
-            "lastSeenOnSecure": 1637712062713,
-            "lastUpdated": 1637712062713,
+            "lastSeenOnSecure": 1638189825281,
+            "lastUpdated": 1638189825281,
             "name": "viragsf@gmail.com",
             "oauth": false,
             "pictureUrl": "http://www.gravatar.com/avatar/edd1469180957cee25d7753ef4a84a13",
@@ -191,7 +191,7 @@ Object {
             "firstName": "Stefan",
             "id": 10006755,
             "lastName": "Virag",
-            "lastSeenOnSecure": 1637712062713,
+            "lastSeenOnSecure": 1638189825281,
             "products": Array [
               "SDC",
               "SDS",
@@ -212,7 +212,7 @@ Object {
       "firstName": "Stefan",
       "id": "10006755",
       "lastName": "Virag",
-      "lastSeenOnSecure": 1637712062713,
+      "lastSeenOnSecure": 1638189825281,
       "name": "viragsf@gmail.com",
       "products": Array [
         "SDC",
@@ -237,7 +237,7 @@ Object {
             "firstName": "Austin",
             "id": 10006754,
             "lastName": "Kelleher",
-            "lastSeenOnSecure": 1636466812758,
+            "lastSeenOnSecure": 1637720323539,
             "products": Array [
               "SDC",
               "SDS",
@@ -258,7 +258,7 @@ Object {
       "firstName": "Austin",
       "id": "10006754",
       "lastName": "Kelleher",
-      "lastSeenOnSecure": 1636466812758,
+      "lastSeenOnSecure": 1637720323539,
       "name": "austin.kelleher@jupiterone.dev",
       "products": Array [
         "SDC",
@@ -314,7 +314,7 @@ Object {
             "firstName": "Stefan",
             "id": 10006755,
             "lastName": "Virag",
-            "lastSeenOnSecure": 1637712062713,
+            "lastSeenOnSecure": 1638189825281,
             "products": Array [
               "SDC",
               "SDS",
@@ -335,7 +335,7 @@ Object {
       "firstName": "Stefan",
       "id": "10006755",
       "lastName": "Virag",
-      "lastSeenOnSecure": 1637712062713,
+      "lastSeenOnSecure": 1638189825281,
       "name": "viragsf@gmail.com",
       "products": Array [
         "SDC",
@@ -360,7 +360,7 @@ Object {
             "firstName": "Austin",
             "id": 10006754,
             "lastName": "Kelleher",
-            "lastSeenOnSecure": 1636466812758,
+            "lastSeenOnSecure": 1637720323539,
             "products": Array [
               "SDC",
               "SDS",
@@ -381,7 +381,7 @@ Object {
       "firstName": "Austin",
       "id": "10006754",
       "lastName": "Kelleher",
-      "lastSeenOnSecure": 1636466812758,
+      "lastSeenOnSecure": 1637720323539,
       "name": "austin.kelleher@jupiterone.dev",
       "products": Array [
         "SDC",

@@ -122,14 +122,14 @@ Object {
             "id": 10006755,
             "intercomUserIdHash": "6ffd280509637cc4221ceeb32aad9847065ec4f2b4a40aa27f194c51a2b32e86",
             "lastName": "Virag",
-            "lastSeenOnSecure": 1637131919249,
-            "lastUpdated": 1637131919249,
+            "lastSeenOnSecure": 1638189825281,
+            "lastUpdated": 1638189825281,
             "name": "viragsf@gmail.com",
             "oauth": false,
             "pictureUrl": "http://www.gravatar.com/avatar/edd1469180957cee25d7753ef4a84a13",
             "products": Array [
-              "SDC",
               "SDS",
+              "SDC",
             ],
             "properties": Object {
               "has_been_invited": true,
