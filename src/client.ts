@@ -1,56 +1,79 @@
-import http from 'http';
+import fetch, { Response } from 'node-fetch';
 
-import { IntegrationProviderAuthenticationError } from '@jupiterone/integration-sdk-core';
+import {
+  IntegrationProviderAPIError,
+  IntegrationProviderAuthenticationError,
+} from '@jupiterone/integration-sdk-core';
 
 import { IntegrationConfig } from './config';
-import { AcmeUser, AcmeGroup } from './types';
+import {
+  PaginatedTeams,
+  PaginatedUsers,
+  SysdigAccount,
+  SysdigTeam,
+  SysdigUser,
+} from './types';
 
-export type ResourceIteratee<T> = (each: T) => Promise<void> | void;
+export type ResourceIteratee<T> = (page: T) => Promise<void>;
 
-/**
- * An APIClient maintains authentication state and provides an interface to
- * third party data APIs.
- *
- * It is recommended that integrations wrap provider data APIs to provide a
- * place to handle error responses and implement common patterns for iterating
- * resources.
- */
 export class APIClient {
   constructor(readonly config: IntegrationConfig) {}
 
-  public async verifyAuthentication(): Promise<void> {
-    // TODO make the most light-weight request possible to validate
-    // authentication works with the provided credentials, throw an err if
-    // authentication fails
-    const request = new Promise<void>((resolve, reject) => {
-      http.get(
-        {
-          hostname: 'localhost',
-          port: 443,
-          path: '/api/v1/some/endpoint?limit=1',
-          agent: false,
-          timeout: 10,
-        },
-        (res) => {
-          if (res.statusCode !== 200) {
-            reject(new Error('Provider authentication failed'));
-          } else {
-            resolve();
-          }
-        },
-      );
+  private readonly paginateEntitiesPerPage = 250;
+
+  private withBaseUri(path: string): string {
+    return `https://${this.config.region}.app.sysdig.com/${path}`;
+  }
+
+  private async request(
+    uri: string,
+    method: 'GET' | 'HEAD' = 'GET',
+  ): Promise<Response> {
+    const response = await fetch(uri, {
+      method,
+      headers: {
+        Authorization: `Bearer ${this.config.apiToken}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
     });
 
-    try {
-      await request;
-    } catch (err) {
-      throw new IntegrationProviderAuthenticationError({
-        cause: err,
-        endpoint: 'https://localhost/api/v1/some/endpoint?limit=1',
-        status: err.status,
-        statusText: err.statusText,
+    if (!response.ok) {
+      throw new IntegrationProviderAPIError({
+        endpoint: uri,
+        status: response.status,
+        statusText: response.statusText,
       });
     }
+    return response;
+  }
+
+  public async verifyAuthentication(): Promise<void> {
+    const statusRoute = this.withBaseUri('api/v1/secure/overview/status');
+    try {
+      await this.request(statusRoute, 'GET');
+    } catch (err) {
+      throw new IntegrationProviderAuthenticationError({
+        endpoint: statusRoute,
+        status: err.code,
+        statusText: err.message,
+      });
+    }
+  }
+
+  public async getCurrentUser(): Promise<SysdigAccount> {
+    const response = await this.request(this.withBaseUri(`api/user/me`), 'GET');
+    const userResponse = await response.json();
+    return userResponse.user;
+  }
+
+  public async getUserById(userId: string): Promise<SysdigAccount> {
+    const response = await this.request(
+      this.withBaseUri(`api/users/${userId}`),
+      'GET',
+    );
+    const userResponse = await response.json();
+    return userResponse.user;
   }
 
   /**
@@ -59,63 +82,66 @@ export class APIClient {
    * @param iteratee receives each resource to produce entities/relationships
    */
   public async iterateUsers(
-    iteratee: ResourceIteratee<AcmeUser>,
+    pageIteratee: ResourceIteratee<SysdigUser>,
   ): Promise<void> {
-    // TODO paginate an endpoint, invoke the iteratee with each record in the
-    // page
-    //
-    // The provider API will hopefully support pagination. Functions like this
-    // should maintain pagination state, and for each page, for each record in
-    // the page, invoke the `ResourceIteratee`. This will encourage a pattern
-    // where each resource is processed and dropped from memory.
+    let body: PaginatedUsers;
+    let offset = -1;
 
-    const users: AcmeUser[] = [
-      {
-        id: 'acme-user-1',
-        name: 'User One',
-      },
-      {
-        id: 'acme-user-2',
-        name: 'User Two',
-      },
-    ];
+    do {
+      offset += 1;
+      const endpoint = this.withBaseUri(
+        `api/v2/users/light?limit=${this.paginateEntitiesPerPage}&offset=${offset}`,
+      );
+      const response = await this.request(endpoint, 'GET');
 
-    for (const user of users) {
-      await iteratee(user);
-    }
+      if (!response.ok) {
+        throw new IntegrationProviderAPIError({
+          endpoint,
+          status: response.status,
+          statusText: response.statusText,
+        });
+      }
+
+      body = await response.json();
+
+      for (const user of body.users) {
+        await pageIteratee(user);
+      }
+    } while ((offset + 1) * this.paginateEntitiesPerPage < body.total);
   }
 
   /**
-   * Iterates each group resource in the provider.
+   * Iterates each user resource in the provider.
    *
    * @param iteratee receives each resource to produce entities/relationships
    */
-  public async iterateGroups(
-    iteratee: ResourceIteratee<AcmeGroup>,
+  public async iterateTeams(
+    pageIteratee: ResourceIteratee<SysdigTeam>,
   ): Promise<void> {
-    // TODO paginate an endpoint, invoke the iteratee with each record in the
-    // page
-    //
-    // The provider API will hopefully support pagination. Functions like this
-    // should maintain pagination state, and for each page, for each record in
-    // the page, invoke the `ResourceIteratee`. This will encourage a pattern
-    // where each resource is processed and dropped from memory.
+    let body: PaginatedTeams;
+    let offset = -1;
 
-    const groups: AcmeGroup[] = [
-      {
-        id: 'acme-group-1',
-        name: 'Group One',
-        users: [
-          {
-            id: 'acme-user-1',
-          },
-        ],
-      },
-    ];
+    do {
+      offset += 1;
+      const endpoint = this.withBaseUri(
+        `api/v2/teams/light?limit=${this.paginateEntitiesPerPage}&offset=${offset}`,
+      );
+      const response = await this.request(endpoint, 'GET');
 
-    for (const group of groups) {
-      await iteratee(group);
-    }
+      if (!response.ok) {
+        throw new IntegrationProviderAPIError({
+          endpoint,
+          status: response.status,
+          statusText: response.statusText,
+        });
+      }
+
+      body = await response.json();
+
+      for (const team of body.teams) {
+        await pageIteratee(team);
+      }
+    } while ((offset + 1) * this.paginateEntitiesPerPage < body.total);
   }
 }
 

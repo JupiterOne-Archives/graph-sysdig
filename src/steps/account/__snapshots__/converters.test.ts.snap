@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createAccountEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Account",
+  ],
+  "_key": "sysdig_account:10006755",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "firstName": "Test",
+        "id": 10006755,
+        "lastName": "User",
+        "name": "user@email.com",
+        "teamRoles": Array [
+          Object {
+            "admin": true,
+            "role": "ROLE_TEAM_MANAGER",
+            "teamId": 10006123,
+            "teamName": "Monitor Operations",
+            "teamTheme": "#7BB0B2",
+            "userId": 10006755,
+            "userName": "user@email.com",
+          },
+        ],
+        "username": "user@email.com",
+      },
+    },
+  ],
+  "_type": "sysdig_account",
+  "createdOn": undefined,
+  "displayName": "Test User",
+  "id": "10006755",
+  "name": "user@email.com",
+  "username": "user@email.com",
+}
+`;

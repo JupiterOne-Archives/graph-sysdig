@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createTeamEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Team",
+  ],
+  "_key": "sysdig_team:10012321",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "canUseAgentCli": true,
+        "canUseAwsMetrics": true,
+        "canUseBeaconMetrics": true,
+        "canUseCustomEvents": true,
+        "canUseRapidResponse": false,
+        "canUseSysdigCapture": true,
+        "customerId": 1001111,
+        "dateCreated": 1636399070709,
+        "default": true,
+        "defaultTeamRole": "ROLE_TEAM_EDIT",
+        "description": "Immutable Secure team with full visibility",
+        "entryPoint": Object {
+          "module": "Explore",
+        },
+        "id": 10012321,
+        "immutable": true,
+        "lastUpdated": 1636399070379,
+        "name": "Secure Operations",
+        "origin": "SYSDIG",
+        "products": Array [
+          "SDS",
+        ],
+        "show": "host",
+        "theme": "#7BB0B2",
+        "userCount": 2,
+        "version": 1,
+      },
+    },
+  ],
+  "_type": "sysdig_team",
+  "canUseAgentCli": true,
+  "canUseAwsMetrics": true,
+  "canUseBeaconMetrics": true,
+  "canUseCustomEvents": true,
+  "canUseRapidResponse": false,
+  "canUseSysdigCapture": true,
+  "createdOn": undefined,
+  "customerId": 1001111,
+  "dateCreated": 1636399070709,
+  "default": true,
+  "defaultTeamRole": "ROLE_TEAM_EDIT",
+  "description": "Immutable Secure team with full visibility",
+  "displayName": "Secure Operations",
+  "entryPointModule": "Explore",
+  "id": "10012321",
+  "immutable": true,
+  "lastUpdated": 1636399070379,
+  "name": "Secure Operations",
+  "origin": "SYSDIG",
+  "products": Array [
+    "SDS",
+  ],
+  "show": "host",
+  "theme": "#7BB0B2",
+  "userCount": 2,
+  "version": 1,
+}
+`;

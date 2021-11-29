@@ -1,25 +1,70 @@
-// Providers often supply types with their API libraries.
+type PaginationData = {
+  offset: number;
+  total: number;
+};
 
-export interface AcmeUser {
-  id: string;
+export type SysdigAccount = {
+  firstName: string;
+  id: number;
+  lastName: string;
+  username: string;
   name: string;
-}
+  teamRoles: {
+    teamId: number;
+    teamName: string;
+    teamTheme: string;
+    userId: number;
+    userName: string;
+    role: string;
+    admin: boolean;
+  }[];
+};
 
-export interface AcmeGroup {
-  id: string;
+export type SysdigUser = {
+  id: number;
+  version: number;
+  username: string;
+  enabled: boolean;
+  systemRole: string;
+  firstName: string;
+  lastName: string;
+  lastSeenOnSecure: number;
+  dateCreated: number;
+  status: string;
+  products: string[];
+};
+
+export type PaginatedUsers = {
+  users: SysdigUser[];
+} & PaginationData;
+
+export type SysdigTeam = {
+  id: number;
+  version: number;
+  dateCreated: number;
+  lastUpdated: number;
+  customerId: number;
+  immutable: boolean;
   name: string;
-  users?: Pick<AcmeUser, 'id'>[];
-}
+  theme: string;
+  description: string;
+  show: string;
+  origin: string;
+  canUseSysdigCapture: boolean;
+  canUseAgentCli: boolean;
+  canUseCustomEvents: boolean;
+  canUseAwsMetrics: boolean;
+  canUseBeaconMetrics: boolean;
+  canUseRapidResponse: boolean;
+  defaultTeamRole: string;
+  userCount: number;
+  entryPoint: {
+    module: string;
+  };
+  products: string[];
+  default: boolean;
+};
 
-// Those can be useful to a degree, but often they're just full of optional
-// values. Understanding the response data may be more reliably accomplished by
-// reviewing the API response recordings produced by testing the wrapper client
-// (./client.ts). However, when there are no types provided, it is necessary to define
-// opaque types for each resource, to communicate the records that are expected
-// to come from an endpoint and are provided to iterating functions.
-
-/*
-import { Opaque } from 'type-fest';
-export type AcmeUser = Opaque<any, 'AcmeUser'>;
-export type AcmeGroup = Opaque<any, 'AcmeGroup'>;
-*/
+export type PaginatedTeams = {
+  teams: SysdigTeam[];
+} & PaginationData;
