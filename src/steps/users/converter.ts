@@ -1,6 +1,7 @@
 import {
   createIntegrationEntity,
   Entity,
+  parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { SysdigUser } from '../../types';
 
@@ -22,11 +23,11 @@ export function createUserEntity(data: SysdigUser): Entity {
         displayName: `${data.firstName} ${data.lastName}`,
         username: data.username,
         id: (data.id as number).toString(),
-        dateCreated: data.dateCreated,
+        createdOn: parseTimePropertyValue(data.dateCreated),
         enabled: data.enabled,
         firstName: data.firstName,
         lastName: data.lastName,
-        lastSeenOnSecure: data.lastSeenOnSecure,
+        lastSeenOnSecure: parseTimePropertyValue(data.lastSeenOnSecure),
         products: data.products,
         status: data.status,
         systemRole: data.systemRole,
