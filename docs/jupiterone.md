@@ -1,20 +1,14 @@
 # Integration with JupiterOne
 
-## {{provider}} + JupiterOne Integration Benefits
+## Sysdig + JupiterOne Integration Benefits
 
-TODO: Iterate the benefits of ingesting data from the provider into JupiterOne.
-Consider the following examples:
-
-- Visualize {{provider}} services, teams, and users in the JupiterOne graph.
-- Map {{provider}} users to employees in your JupiterOne account.
-- Monitor changes to {{provider}} users using JupiterOne alerts.
+- Visualize Sysdig account, teams, and users in the JupiterOne graph.
+- See relationships between Sysdig teams and users in your JupiterOne account.
+- Monitor changes to Sysdig users using JupiterOne alerts.
 
 ## How it Works
 
-TODO: Iterate significant activities the integration enables. Consider the
-following examples:
-
-- JupiterOne periodically fetches services, teams, and users from {{provider}}
+- JupiterOne periodically fetches account details, teams, and users from Sysdig
   to update the graph.
 - Write JupiterOne queries to review and monitor updates to the graph, or
   leverage existing queries.
@@ -23,13 +17,10 @@ following examples:
 
 ## Requirements
 
-TODO: Iterate requirements for setting up the integration. Consider the
-following examples:
-
-- {{provider}} supports the OAuth2 Client Credential flow. You must have a
+- Sysdig supports an API Token credential. You must have a
   Administrator user account.
-- JupiterOne requires a REST API key. You need permission to create a user in
-  {{provider}} that will be used to obtain the API key.
+- JupiterOne requires a Sysdig account API token. You need permission to create a user in
+  Sysdig that will be used to obtain the API key.
 - You must have permission in JupiterOne to install new integrations.
 
 ## Support
@@ -39,42 +30,33 @@ If you need help with this integration, please contact
 
 ## Integration Walkthrough
 
-### In {{provider}}
+### In Sysdig
 
-TODO: List specific actions that must be taken in the provider. Remove this
-section when there are no actions to take in the provider.
-
-1. [Generate a REST API key](https://example.com/docs/generating-api-keys)
+1. [Retrieve the Sysdig API Token](https://docs.sysdig.com/en/docs/administration/administration-settings/user-profile-and-password/retrieve-the-sysdig-api-token/)
+2. Look up the [SaaS Region](https://docs.sysdig.com/en/docs/administration/saas-regions-and-ip-ranges/) for your Sysdig account.  The integration configuration needs the endpoint for your account (e.g. `us2`)
 
 ### In JupiterOne
 
-TODO: List specific actions that must be taken in JupiterOne. Many of the
-following steps will be reusable; take care to be sure they remain accurate.
-
 1. From the configuration **Gear Icon**, select **Integrations**.
-2. Scroll to the **{{provider}}** integration tile and click it.
+2. Scroll to the **Sysdig** integration tile and click it.
 3. Click the **Add Configuration** button and configure the following settings:
 
-- Enter the **Account Name** by which you'd like to identify this {{provider}}
+- Enter the **Account Name** by which you'd like to identify this Sysdig
   account in JupiterOne. Ingested entities will have this value stored in
   `tag.AccountName` when **Tag with Account Name** is checked.
 - Enter a **Description** that will further assist your team when identifying
   the integration instance.
 - Select a **Polling Interval** that you feel is sufficient for your monitoring
   needs. You may leave this as `DISABLED` and manually execute the integration.
-- {{additional provider-specific settings}} Enter the **{{provider}} API Key**
-  generated for use by JupiterOne.
+- Enter the Sysdig **API Token** generated for use by JupiterOne.
+- Enter the **Region** for your Sysdig account
 
 4. Click **Create Configuration** once all values are provided.
 
 # How to Uninstall
 
-TODO: List specific actions that must be taken to uninstall the integration.
-Many of the following steps will be reusable; take care to be sure they remain
-accurate.
-
 1. From the configuration **Gear Icon**, select **Integrations**.
-2. Scroll to the **{{provider}}** integration tile and click it.
+2. Scroll to the **Sysdig** integration tile and click it.
 3. Identify and click the **integration to delete**.
 4. Click the **trash can** icon.
 5. Click the **Remove** button to delete the integration.
