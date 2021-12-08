@@ -17,10 +17,10 @@
 
 ## Requirements
 
-- Sysdig supports an API Token credential. You must have a
-  Administrator user account.
-- JupiterOne requires a Sysdig account API token. You need permission to create a user in
-  Sysdig that will be used to obtain the API key.
+- Sysdig supports an API Token credential. You must have a Administrator user
+  account.
+- JupiterOne requires a Sysdig account API token. You need permission to create
+  a user in Sysdig that will be used to obtain the API key.
 - You must have permission in JupiterOne to install new integrations.
 
 ## Support
@@ -33,7 +33,10 @@ If you need help with this integration, please contact
 ### In Sysdig
 
 1. [Retrieve the Sysdig API Token](https://docs.sysdig.com/en/docs/administration/administration-settings/user-profile-and-password/retrieve-the-sysdig-api-token/)
-2. Look up the [SaaS Region](https://docs.sysdig.com/en/docs/administration/saas-regions-and-ip-ranges/) for your Sysdig account.  The integration configuration needs the endpoint for your account (e.g. `us2`)
+2. Look up the
+   [SaaS Region](https://docs.sysdig.com/en/docs/administration/saas-regions-and-ip-ranges/)
+   for your Sysdig account. The integration configuration needs the endpoint for
+   your account (e.g. `us2`)
 
 ### In JupiterOne
 
@@ -41,8 +44,8 @@ If you need help with this integration, please contact
 2. Scroll to the **Sysdig** integration tile and click it.
 3. Click the **Add Configuration** button and configure the following settings:
 
-- Enter the **Account Name** by which you'd like to identify this Sysdig
-  account in JupiterOne. Ingested entities will have this value stored in
+- Enter the **Account Name** by which you'd like to identify this Sysdig account
+  in JupiterOne. Ingested entities will have this value stored in
   `tag.AccountName` when **Tag with Account Name** is checked.
 - Enter a **Description** that will further assist your team when identifying
   the integration instance.
@@ -78,11 +81,12 @@ https://github.com/JupiterOne/sdk/blob/main/docs/integrations/development.md
 
 The following entities are created:
 
-| Resources | Entity `_type`   | Entity `_class` |
-| --------- | ---------------- | --------------- |
-| Account   | `sysdig_account` | `Account`       |
-| Team      | `sysdig_team`    | `Team`          |
-| User      | `sysdig_user`    | `User`          |
+| Resources  | Entity `_type`      | Entity `_class` |
+| ---------- | ------------------- | --------------- |
+| Account    | `sysdig_account`    | `Account`       |
+| Image Scan | `sysdig_image_scan` | `Assessment`    |
+| Team       | `sysdig_team`       | `Team`          |
+| User       | `sysdig_user`       | `User`          |
 
 ### Relationships
 
@@ -90,6 +94,7 @@ The following relationships are created:
 
 | Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
 | --------------------- | --------------------- | --------------------- |
+| `sysdig_account`      | **HAS**               | `sysdig_image_scan`   |
 | `sysdig_account`      | **HAS**               | `sysdig_team`         |
 | `sysdig_account`      | **HAS**               | `sysdig_user`         |
 | `sysdig_team`         | **HAS**               | `sysdig_user`         |

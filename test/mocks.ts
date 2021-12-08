@@ -1,4 +1,9 @@
-import { SysdigAccount, SysdigTeam, SysdigUser } from '../src/types';
+import {
+  SysdigAccount,
+  SysdigResult,
+  SysdigTeam,
+  SysdigUser,
+} from '../src/types';
 
 export function getMockAccount(
   partial?: Partial<SysdigAccount>,
@@ -66,5 +71,25 @@ export function getMockTeam(partial?: Partial<SysdigTeam>): SysdigTeam {
     },
     products: ['SDS'],
     default: true,
+  };
+}
+
+export function getMockImageScan(partial?: Partial<SysdigTeam>): SysdigResult {
+  return {
+    analysisStatus: 'analyzed',
+    analyzedAt: 1638870815,
+    createdAt: 1638870765,
+    fullTag: 'quay.io/bitnami/nginx:latest',
+    imageDigest:
+      'sha256:253a0fef1f5b8baaa691fcfd8a437d800ff91186fb62e19b56ff6b0de5a50355',
+    imageId: '29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d',
+    parentDigest:
+      'sha256:253a0fef1f5b8baaa691fcfd8a437d800ff91186fb62e19b56ff6b0de5a50355',
+    tagDetectedAt: 1638870765,
+    registry: 'quay.io',
+    repository: 'bitnami/nginx',
+    tag: 'latest',
+    origin: 'sysdig-secure-ui',
+    policyStatus: 'WARN',
   };
 }

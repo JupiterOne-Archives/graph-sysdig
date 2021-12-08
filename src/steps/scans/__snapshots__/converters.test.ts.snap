@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createImageScanEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Assessment",
+  ],
+  "_key": "sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "analysisStatus": "analyzed",
+        "analyzedAt": 1638870815,
+        "createdAt": 1638870765,
+        "fullTag": "quay.io/bitnami/nginx:latest",
+        "imageDigest": "sha256:253a0fef1f5b8baaa691fcfd8a437d800ff91186fb62e19b56ff6b0de5a50355",
+        "imageId": "29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d",
+        "origin": "sysdig-secure-ui",
+        "parentDigest": "sha256:253a0fef1f5b8baaa691fcfd8a437d800ff91186fb62e19b56ff6b0de5a50355",
+        "policyStatus": "WARN",
+        "registry": "quay.io",
+        "repository": "bitnami/nginx",
+        "tag": "latest",
+        "tagDetectedAt": 1638870765,
+      },
+    },
+  ],
+  "_type": "sysdig_image_scan",
+  "analysisStatus": "analyzed",
+  "analyzedAt": 1638870815,
+  "category": "Image Scan",
+  "createdAt": 1638870765,
+  "createdOn": 1638870765,
+  "displayName": "bitnami/nginx",
+  "fullTag": "quay.io/bitnami/nginx:latest",
+  "imageDigest": "sha256:253a0fef1f5b8baaa691fcfd8a437d800ff91186fb62e19b56ff6b0de5a50355",
+  "imageId": "29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d",
+  "internal": false,
+  "name": "bitnami/nginx",
+  "origin": "sysdig-secure-ui",
+  "parentDigest": "sha256:253a0fef1f5b8baaa691fcfd8a437d800ff91186fb62e19b56ff6b0de5a50355",
+  "policyStatus": "WARN",
+  "registry": "quay.io",
+  "repository": "bitnami/nginx",
+  "summary": "Image Scan",
+  "tag": "latest",
+  "tagDetectedAt": 1638870765,
+}
+`;

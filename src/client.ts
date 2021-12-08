@@ -10,6 +10,8 @@ import {
   PaginatedTeams,
   PaginatedUsers,
   SysdigAccount,
+  SysdigResult,
+  SysdigResultResponse,
   SysdigTeam,
   SysdigUser,
 } from './types';
@@ -142,6 +144,40 @@ export class APIClient {
         await pageIteratee(team);
       }
     } while ((offset + 1) * this.paginateEntitiesPerPage < body.total);
+  }
+
+  /**
+   * Iterates each user resource in the provider.
+   *
+   * @param iteratee receives each resource to produce entities/relationships
+   */
+  public async iterateImageScans(
+    pageIteratee: ResourceIteratee<SysdigResult>,
+  ): Promise<void> {
+    let body: SysdigResultResponse;
+    let offset = -1;
+
+    do {
+      offset += 1;
+      const endpoint = this.withBaseUri(
+        `api/scanning/v1/resultsDirect?limit=${this.paginateEntitiesPerPage}&offset=${offset}`,
+      );
+      const response = await this.request(endpoint, 'GET');
+
+      if (!response.ok) {
+        throw new IntegrationProviderAPIError({
+          endpoint,
+          status: response.status,
+          statusText: response.statusText,
+        });
+      }
+
+      body = await response.json();
+
+      for (const result of body.results) {
+        await pageIteratee(result);
+      }
+    } while ((offset + 1) * this.paginateEntitiesPerPage < body.metadata.total);
   }
 }
 
