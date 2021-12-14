@@ -68,3 +68,48 @@ export type SysdigTeam = {
 export type PaginatedTeams = {
   teams: SysdigTeam[];
 } & PaginationData;
+
+export type SysdigResult = {
+  analysisStatus: string;
+  analyzedAt: number;
+  createdAt: number;
+  fullTag: string;
+  imageDigest: string;
+  imageId: string;
+  parentDigest: string;
+  tagDetectedAt: number;
+  registry: string;
+  repository: string;
+  tag: string;
+  origin: string;
+  policyStatus: string;
+};
+
+export type SysdigResultMetadata = {
+  total: number;
+  policyStatus: {
+    totalPassed: number;
+    totalFailed: number;
+    totalNotEvaluated: number;
+  };
+  origins: {
+    'sysdig-secure-ui': number;
+  };
+  allOrigins: string[];
+  allRegistries: string[];
+};
+
+export type SysdigResultOptions = {
+  sort: string;
+  sortBy: string;
+  offset: number;
+  limit: number;
+  canLoadMore: boolean;
+};
+
+export type SysdigResultResponse = {
+  options: SysdigResultOptions;
+  results: SysdigResult[];
+  totalRows: number;
+  metadata: SysdigResultMetadata;
+};
