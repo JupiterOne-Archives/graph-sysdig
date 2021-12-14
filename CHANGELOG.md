@@ -8,6 +8,23 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.1.0 - 2021-12-14
+
+### Added
+
+- ### Added
+
+- New properties added to resources:
+
+  | Entity        | Properties |
+  | ------------- | ---------- |
+  | `sysdig_user` | `admin`    |
+  | `sysdig_user` | `active`   |
+  | `sysdig_user` | `webLink`  |
+  | `sysdig_team` | `default`  |
+
+- New managed questions
+
 ## 0.0.1 - 2021-11-29
 
 ### Added
