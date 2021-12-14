@@ -5,15 +5,24 @@ Object {
   "_class": Array [
     "Account",
   ],
-  "_key": "sysdig_account:10006755",
+  "_key": "sysdig_account:10001234",
   "_rawData": Array [
     Object {
       "name": "default",
       "rawData": Object {
-        "firstName": "Test",
-        "id": 10006755,
-        "lastName": "User",
+        "dateCreated": 1636399070571,
+        "enabled": true,
+        "firstName": "John",
+        "id": 10001234,
+        "lastName": "Doe",
+        "lastSeenOnSecure": 1636466812758,
         "name": "user@email.com",
+        "products": Array [
+          "SDC",
+          "SDS",
+        ],
+        "status": "confirmed",
+        "systemRole": "ROLE_CUSTOMER",
         "teamRoles": Array [
           Object {
             "admin": true,
@@ -25,15 +34,18 @@ Object {
             "userName": "user@email.com",
           },
         ],
-        "username": "user@email.com",
+        "username": "user@email.dev",
+        "version": 2,
       },
     },
   ],
   "_type": "sysdig_account",
+  "active": undefined,
   "createdOn": undefined,
-  "displayName": "Test User",
-  "id": "10006755",
+  "displayName": "John Doe",
+  "id": "10001234",
   "name": "user@email.com",
-  "username": "user@email.com",
+  "status": "confirmed",
+  "username": "user@email.dev",
 }
 `;

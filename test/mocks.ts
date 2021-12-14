@@ -25,6 +25,7 @@ export function getMockAccount(
         admin: true,
       },
     ],
+    ...getMockUser(partial),
     ...partial,
   };
 }
@@ -42,6 +43,7 @@ export function getMockUser(partial?: Partial<SysdigUser>): SysdigUser {
     dateCreated: 1636399070571,
     status: 'confirmed',
     products: ['SDC', 'SDS'],
+    ...partial,
   };
 }
 

@@ -244,6 +244,7 @@ describe('#buildTeamAndUsersRelationship', () => {
           status: { type: 'string' },
           systemRole: { type: 'string' },
           version: { type: 'number' },
+          admin: { type: 'boolean' },
         },
       },
     });

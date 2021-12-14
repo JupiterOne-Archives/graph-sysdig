@@ -62,6 +62,7 @@ describe('#fetchUsers', () => {
           status: { type: 'string' },
           systemRole: { type: 'string' },
           version: { type: 'number' },
+          admin: { type: 'boolean' },
         },
       },
     });
@@ -146,6 +147,7 @@ describe('#buildAccountAndUsersRelationship', () => {
           status: { type: 'string' },
           systemRole: { type: 'string' },
           version: { type: 'number' },
+          admin: { type: 'boolean' },
         },
       },
     });
