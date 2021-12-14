@@ -3,7 +3,7 @@ import {
   Entity,
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
-import { SysdigAccount, SysdigUser } from '../../types';
+import { SysdigAccount } from '../../types';
 import { getWebLink } from '../../util/links';
 
 import { Entities } from '../constants';

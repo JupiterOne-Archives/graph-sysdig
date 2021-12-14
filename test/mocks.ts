@@ -9,11 +9,7 @@ export function getMockAccount(
   partial?: Partial<SysdigAccount>,
 ): SysdigAccount {
   return {
-    username: 'user@email.com',
-    firstName: 'Test',
-    lastName: 'User',
     name: 'user@email.com',
-    id: 10006755,
     teamRoles: [
       {
         teamId: 10006123,
