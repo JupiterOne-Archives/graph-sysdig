@@ -33,6 +33,7 @@ export function createUserEntity(region: string, data: SysdigUser): Entity {
         status: data.status,
         systemRole: data.systemRole,
         version: data.version,
+        active: data.status === 'confirmed',
         webLink: getWebLink(region, `/#/settings/users/${data.id}`),
       },
     },
