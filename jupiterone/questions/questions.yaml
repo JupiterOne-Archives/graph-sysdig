@@ -34,4 +34,15 @@ questions:
   tags:
   - sysdig 
   - user 
-
+- id: integration-question-sysdig-default-team
+  title: Which Sysdig team are users added to by default?
+  description:
+    Find default Sysdig teams in which users are assigned when the user is not assigned to other groups
+  queries:
+  - query: |
+    FIND sysdig_team WITH default = true
+  tags:
+  - sysdig 
+  - user 
+  - group 
+  - team
