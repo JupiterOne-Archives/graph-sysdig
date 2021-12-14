@@ -10,8 +10,8 @@ questions:
   - query: |
       FIND sysdig_user WITH active != true
   tags:
-  - sysdig 
-  - user 
+  - sysdig
+  - user
 - id: integration-question-sysdig-admin
   title: Which Sysdig users are administrators?
   description:
@@ -20,8 +20,8 @@ questions:
   - query: |
       FIND sysdig_user WITH admin = true
   tags:
-  - sysdig 
-  - user 
+  - sysdig
+  - user
   - access
   - iam
 - id: integration-question-sysdig-users-recent
@@ -32,17 +32,17 @@ questions:
   - query: |
       FIND sysdig_user WITH lastSeenOnSecure >= date.now - {days} days
   tags:
-  - sysdig 
-  - user 
+  - sysdig
+  - user
 - id: integration-question-sysdig-default-team
   title: Which Sysdig team are users added to by default?
   description:
     Find default Sysdig teams in which users are assigned when the user is not assigned to other groups
   queries:
   - query: |
-    FIND sysdig_team WITH default = true
+      FIND sysdig_team WITH default = true
   tags:
-  - sysdig 
-  - user 
-  - group 
+  - sysdig
+  - user
+  - group
   - team
