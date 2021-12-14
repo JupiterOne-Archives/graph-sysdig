@@ -386,6 +386,7 @@ Object {
       "systemRole": "ROLE_CUSTOMER",
       "username": "viragsf@gmail.com",
       "version": 2,
+      "webLink": "https://us2.app.sysdig.com/secure/#/settings/users/10006755",
     },
     Object {
       "_class": Array [
@@ -431,6 +432,7 @@ Object {
       "systemRole": "ROLE_CUSTOMER",
       "username": "austin.kelleher@jupiterone.dev",
       "version": 2,
+      "webLink": "https://us2.app.sysdig.com/secure/#/settings/users/10006754",
     },
     Object {
       "_class": Array [

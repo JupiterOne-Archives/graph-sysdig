@@ -3,6 +3,6 @@ import { createUserEntity } from './converter';
 
 describe('#createUserEntity', () => {
   test('should convert to entity', () => {
-    expect(createUserEntity(getMockUser())).toMatchSnapshot();
+    expect(createUserEntity('us2', getMockUser())).toMatchSnapshot();
   });
 });

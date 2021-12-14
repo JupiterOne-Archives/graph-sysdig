@@ -4,6 +4,7 @@ import {
   parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { SysdigUser } from '../../types';
+import { getWebLink } from '../../util/links';
 
 import { Entities } from '../constants';
 
@@ -11,7 +12,7 @@ export function getUserKey(id: number): string {
   return `sysdig_user:${id}`;
 }
 
-export function createUserEntity(data: SysdigUser): Entity {
+export function createUserEntity(region: string, data: SysdigUser): Entity {
   return createIntegrationEntity({
     entityData: {
       source: data,
@@ -32,6 +33,7 @@ export function createUserEntity(data: SysdigUser): Entity {
         status: data.status,
         systemRole: data.systemRole,
         version: data.version,
+        webLink: getWebLink(region, `/#/settings/users/${data.id}`),
       },
     },
   });

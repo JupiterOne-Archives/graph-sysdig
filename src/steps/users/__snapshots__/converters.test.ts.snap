@@ -45,5 +45,6 @@ Object {
   "systemRole": "ROLE_CUSTOMER",
   "username": "user@email.dev",
   "version": 2,
+  "webLink": "https://us2.app.sysdig.com/secure/#/settings/users/10001234",
 }
 `;
