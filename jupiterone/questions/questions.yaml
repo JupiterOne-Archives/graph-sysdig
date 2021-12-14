@@ -1,4 +1,48 @@
 ---
 sourceId: managed:template
 integrationDefinitionId: '${integration_definition_id}'
-questions: []
+questions:
+- id: integration-question-sysdig-active-users
+  title: Which Sysdig users are not active?
+  description:
+    Finds all Sysdig users who are unconfirmed
+  queries:
+  - query: |
+      FIND sysdig_user WITH active != true
+  tags:
+  - sysdig
+  - user
+- id: integration-question-sysdig-admin
+  title: Which Sysdig users are administrators?
+  description:
+    Finds all Sysdig users who are administrators
+  queries:
+  - query: |
+      FIND sysdig_user WITH admin = true
+  tags:
+  - sysdig
+  - user
+  - access
+  - iam
+- id: integration-question-sysdig-users-recent
+  title: Which Sysdig users have logged into Sysdig recently?
+  description:
+    Finds Sysdig users who have logged in within 30 days
+  queries:
+  - query: |
+      FIND sysdig_user WITH lastSeenOnSecure >= date.now - 30 days
+  tags:
+  - sysdig
+  - user
+- id: integration-question-sysdig-default-team
+  title: Which Sysdig team are users added to by default?
+  description:
+    Find default Sysdig teams in which users are assigned when the user is not assigned to other groups
+  queries:
+  - query: |
+      FIND sysdig_team WITH default = true
+  tags:
+  - sysdig
+  - user
+  - group
+  - team

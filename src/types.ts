@@ -3,7 +3,7 @@ type PaginationData = {
   total: number;
 };
 
-export type SysdigAccount = {
+export type SysdigAccount = SysdigUser & {
   firstName: string;
   id: number;
   lastName: string;

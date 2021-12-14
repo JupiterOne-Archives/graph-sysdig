@@ -9,11 +9,7 @@ export function getMockAccount(
   partial?: Partial<SysdigAccount>,
 ): SysdigAccount {
   return {
-    username: 'user@email.com',
-    firstName: 'Test',
-    lastName: 'User',
     name: 'user@email.com',
-    id: 10006755,
     teamRoles: [
       {
         teamId: 10006123,
@@ -25,6 +21,7 @@ export function getMockAccount(
         admin: true,
       },
     ],
+    ...getMockUser(partial),
     ...partial,
   };
 }
@@ -42,6 +39,7 @@ export function getMockUser(partial?: Partial<SysdigUser>): SysdigUser {
     dateCreated: 1636399070571,
     status: 'confirmed',
     products: ['SDC', 'SDS'],
+    ...partial,
   };
 }
 
