@@ -27,10 +27,10 @@ questions:
 - id: integration-question-sysdig-users-recent
   title: Which Sysdig users have logged into Sysdig recently?
   description:
-    Finds Sysdig users who have logged in within a given number of days  (e.g. 7)
+    Finds Sysdig users who have logged in within 30 days
   queries:
   - query: |
-      FIND sysdig_user WITH lastSeenOnSecure >= date.now - {days} days
+      FIND sysdig_user WITH lastSeenOnSecure >= date.now - 30 days
   tags:
   - sysdig
   - user
