@@ -1,4 +1,4 @@
-# Integration with JupiterOne
+# Sysdig Integration with JupiterOne
 
 ## Sysdig + JupiterOne Integration Benefits
 
