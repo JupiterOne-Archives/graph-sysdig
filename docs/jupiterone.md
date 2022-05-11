@@ -1,4 +1,4 @@
-# Integration with JupiterOne
+# Sysdig Integration with JupiterOne
 
 ## Sysdig + JupiterOne Integration Benefits
 
@@ -53,7 +53,7 @@ If you need help with this integration, please contact
   needs. You may leave this as `DISABLED` and manually execute the integration.
 - Enter the Sysdig **API Token** generated for use by JupiterOne.
 - Enter the **Region** for your Sysdig account
-
+  
 4. Click **Create Configuration** once all values are provided.
 
 # How to Uninstall
