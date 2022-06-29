@@ -46,3 +46,18 @@ questions:
   - user
   - group
   - team
+
+- id: integration-question-sysdig-active-power-users-with-rapid-response
+  title: Who are the Sysdig active power users with rapid response?
+  description:
+    Returns a list of active Sysdig power users with rapid response.
+  queries:
+  - query: |
+      FIND sysdig_user WITH active = true 
+        THAT HAS sysdig_team WITH canUseRapidResponse = true
+  tags:
+  - sysdig
+  - user
+  - group
+  - team
+
