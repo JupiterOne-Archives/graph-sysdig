@@ -1,6 +1,6 @@
 {
   "name": "@jupiterone/graph-sysdig",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A graph conversion tool for https://sysdig.com/",
   "license": "MPL-2.0",
   "main": "src/index.js",
