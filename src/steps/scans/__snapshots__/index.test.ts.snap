@@ -181,7 +181,7 @@ Object {
       "_class": Array [
         "Assessment",
       ],
-      "_key": "sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d",
+      "_key": "sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d:1638870815",
       "_rawData": Array [
         Object {
           "name": "default",
@@ -228,8 +228,8 @@ Object {
     Object {
       "_class": "HAS",
       "_fromEntityKey": "sysdig_account:10006755",
-      "_key": "sysdig_account:10006755|has|sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d",
-      "_toEntityKey": "sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d",
+      "_key": "sysdig_account:10006755|has|sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d:1638870815",
+      "_toEntityKey": "sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d:1638870815",
       "_type": "sysdig_account_has_image_scan",
       "displayName": "HAS",
     },
@@ -250,7 +250,7 @@ Object {
       "_class": Array [
         "Assessment",
       ],
-      "_key": "sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d",
+      "_key": "sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d:1638870815",
       "_rawData": Array [
         Object {
           "name": "default",
