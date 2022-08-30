@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.2.1 - 2022-08-30
+
+### Fixed
+
+- Added `analyzedAt` to the `_key` for `sysdig_image_scan` to ensure global
+  uniqueness.
+
 ## 0.1.0 - 2021-12-14
 
 ### Added
