@@ -6,8 +6,8 @@ import { SysdigResult } from '../../types';
 
 import { Entities } from '../constants';
 
-export function getImageScanKey(id: string, analyzedAt: number): string {
-  return `sysdig_image_scan:${id}:${analyzedAt}`;
+export function getImageScanKey(id: string): string {
+  return `sysdig_image_scan:${id}`;
 }
 
 export function createImageScanEntity(data: SysdigResult): Entity {
@@ -15,7 +15,7 @@ export function createImageScanEntity(data: SysdigResult): Entity {
     entityData: {
       source: data,
       assign: {
-        _key: getImageScanKey(data.imageId, data.analyzedAt),
+        _key: getImageScanKey(data.imageId),
         _type: Entities.IMAGE_SCAN._type,
         _class: Entities.IMAGE_SCAN._class,
         name: data.repository,
