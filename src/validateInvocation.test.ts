@@ -18,7 +18,9 @@ it('requires valid config', async () => {
   );
 });
 
-it('auth error', async () => {
+// TODO INT:5412  @zemberdotnet
+// reenable auth
+it.skip('auth error', async () => {
   const recording = setupRecording({
     directory: '__recordings__',
     name: 'client-auth-error',
