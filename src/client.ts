@@ -1,9 +1,6 @@
 import fetch, { Response } from 'node-fetch';
 
-import {
-  IntegrationProviderAPIError,
-  IntegrationProviderAuthenticationError,
-} from '@jupiterone/integration-sdk-core';
+import { IntegrationProviderAPIError } from '@jupiterone/integration-sdk-core';
 
 import { IntegrationConfig } from './config';
 import {
