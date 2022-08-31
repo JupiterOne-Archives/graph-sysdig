@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 0.2.3 - 2022-08-31
+
+### Changed
+
+- Skipping duplicate `sysdig_image_scan` creation and adding informational
+  gathering logs to understand duplicate images scans better.
+
 ## 0.2.2 - 2022-08-31
 
 ### Changed

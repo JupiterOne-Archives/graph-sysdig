@@ -5,7 +5,7 @@ Object {
   "_class": Array [
     "Assessment",
   ],
-  "_key": "sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d:1638870815",
+  "_key": "sysdig_image_scan:29616510799237b94b21e67dbf112411ccea244ed875cd54370d2167ec62b05d",
   "_rawData": Array [
     Object {
       "name": "default",
