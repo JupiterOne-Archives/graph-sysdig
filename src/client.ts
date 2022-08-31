@@ -1,9 +1,6 @@
 import fetch, { Response } from 'node-fetch';
 
-import {
-  IntegrationProviderAPIError,
-  IntegrationProviderAuthenticationError,
-} from '@jupiterone/integration-sdk-core';
+import { IntegrationProviderAPIError } from '@jupiterone/integration-sdk-core';
 
 import { IntegrationConfig } from './config';
 import {
@@ -55,11 +52,16 @@ export class APIClient {
     try {
       await this.request(statusRoute, 'GET');
     } catch (err) {
+      return;
+      // TODO INT:5412  @zemberdotnet
+      // reenable auth
+      /*
       throw new IntegrationProviderAuthenticationError({
         endpoint: statusRoute,
         status: err.code,
         statusText: err.message,
       });
+      */
     }
   }
 
