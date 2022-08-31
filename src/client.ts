@@ -55,11 +55,16 @@ export class APIClient {
     try {
       await this.request(statusRoute, 'GET');
     } catch (err) {
+      return;
+      // TODO INT:5412  @zemberdotnet
+      // reenable auth
+      /*
       throw new IntegrationProviderAuthenticationError({
         endpoint: statusRoute,
         status: err.code,
         statusText: err.message,
       });
+      */
     }
   }
 
