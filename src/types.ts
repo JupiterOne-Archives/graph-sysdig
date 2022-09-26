@@ -113,3 +113,160 @@ export type SysdigResultResponse = {
   totalRows: number;
   metadata: SysdigResultMetadata;
 };
+
+export type ImageScansV2Pagination = {
+  returned: number;
+  matched: number;
+  next: string | null;
+};
+
+export type ImageScanV2 = {
+  id: string;
+  storedAt: string;
+  type: string;
+  metadata: {
+    imageId: string;
+    pullString: string;
+    baseOS: string;
+    digest: string;
+    createdAt: string;
+    author: string;
+    size: number;
+    os: string;
+    architecture: string;
+    labels: any;
+    layersCount: number;
+  };
+  labels: any;
+  vulnsBySev: {
+    totalCount: number;
+    fixableCount: number;
+  }[];
+  packageCount: number;
+  packageTypes: string[];
+  fixablePackages: any[];
+  runningFixablePackages: any;
+  policyEvaluations: PolicyEvaluation[];
+  isEVEEnabled: boolean;
+};
+
+export type PolicyEvaluation = {
+  id: string;
+  name: string;
+  identifier: string;
+  policyType: string;
+  evaluationResult: string;
+  failuresCount: {
+    imageConfigCreationDate: number;
+    imageConfigDefaultUser: number;
+    imageConfigEnvVariable: number;
+    imageConfigInstructionIsPkgManager: number;
+    imageConfigInstructionNotRecommended: number;
+    imageConfigLabel: number;
+    imageConfigSensitiveInformationAndSecrets: number;
+    vulnDenyList: number;
+    vulnSeverityAndThreats: number;
+  };
+  creationTimestamp: string;
+  updateTimestamp: string;
+};
+
+export type PolicyEvaluations = {
+  data: PolicyEvaluation[];
+};
+
+export type PaginatedImageScansV2 = {
+  page: ImageScansV2Pagination;
+  data: ImageScanV2[];
+};
+
+export type VulnerablePackagesPagination = {
+  returned: number;
+  offset: number;
+  matched: number;
+};
+
+export type VulnerablePackage = {
+  id: string;
+  vuln: Vulnerability;
+  package: {
+    id: string;
+    name: string;
+    version: string;
+    type: string;
+    path: string;
+    running: boolean;
+  };
+  fixedInVersion: string;
+};
+
+export type Vulnerability = {
+  name: string;
+  severity: {
+    reporter: {
+      name: string;
+      url: string | null;
+    };
+    value: number;
+  };
+  cvssScore: CvssScore;
+  additionalCVSSScores: CvssScore[];
+  exploitable: boolean;
+  exploit: any;
+  description: string;
+  disclosureDate: string;
+  solutionDate: string;
+};
+
+export type CvssScore = {
+  reporter: {
+    name: string;
+    url: string | null;
+  };
+  value: {
+    version: string;
+    score: number;
+    vector: string;
+  };
+};
+
+export type PaginatedVulnerabilities = {
+  page: VulnerablePackagesPagination;
+  data: VulnerablePackage[];
+};
+
+export type Policy = {
+  id: number;
+  name: string;
+  identifier: string;
+  description: string;
+  policyType: string;
+  bundles: RuleBundle[];
+  creationTimestamp: string;
+  updateTimestamp: string;
+};
+
+export type Policies = {
+  policies: Policy[];
+};
+
+export type RuleBundle = {
+  id: number;
+  name: string;
+  identifier: string;
+  description: string;
+  bundleType: string;
+  rules: Rule;
+  creationTimestamp: string;
+  updateTimestamp: string;
+};
+
+export type Rule = {
+  ruleType: number;
+  predicates: string;
+};
+
+export type Predicate = {
+  type: string;
+  extra?: any;
+};

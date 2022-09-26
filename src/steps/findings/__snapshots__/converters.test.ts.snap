@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createImageScanEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Finding",
+  ],
+  "_key": "sysdig_finding:17140adb60b1639af116c091e3277af6",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "fixedInVersion": "10.36-2+deb11u1",
+        "id": "17140adb60b1639af116c091e3277af6",
+        "package": Object {
+          "id": "17140adb60b1639ad35b4c1a76a5fba9",
+          "name": "libpcre2-8-0",
+          "path": "/var/lib/dpkg/status",
+          "running": true,
+          "type": "os",
+          "version": "10.36-2",
+        },
+        "vuln": Object {
+          "additionalCVSSScores": Array [
+            Object {
+              "reporter": Object {
+                "name": "nvd",
+                "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-1587",
+              },
+              "value": Object {
+                "score": 6.4,
+                "vector": "AV:N/AC:L/Au:N/C:P/I:N/A:P",
+                "version": "2.0",
+              },
+            },
+            Object {
+              "reporter": Object {
+                "name": "vulndb",
+                "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-1587",
+              },
+              "value": Object {
+                "score": 8.2,
+                "vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H",
+                "version": "3.0",
+              },
+            },
+          ],
+          "cvssScore": Object {
+            "reporter": Object {
+              "name": "nvd",
+              "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-1587",
+            },
+            "value": Object {
+              "score": 9.1,
+              "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H",
+              "version": "3.1",
+            },
+          },
+          "description": "test",
+          "disclosureDate": "2022-03-26T00:00:00Z",
+          "exploit": null,
+          "exploitable": false,
+          "name": "CVE-2022-1587",
+          "severity": Object {
+            "reporter": Object {
+              "name": "nvd",
+              "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-1587",
+            },
+            "value": 2,
+          },
+          "solutionDate": "2022-04-15T00:00:00Z",
+        },
+      },
+    },
+  ],
+  "_type": "sysdig_finding",
+  "category": "Package",
+  "createdOn": undefined,
+  "displayName": "CVE-2022-1587",
+  "fixedInVersion": "CVE-2022-1587",
+  "id": "17140adb60b1639af116c091e3277af6",
+  "name": "CVE-2022-1587",
+  "numericSeverity": 2,
+  "open": true,
+  "package.id": "17140adb60b1639ad35b4c1a76a5fba9",
+  "package.name": "libpcre2-8-0",
+  "package.path": "/var/lib/dpkg/status",
+  "package.running": true,
+  "package.type": "os",
+  "package.version": "10.36-2",
+  "severity": "Critical",
+  "vulnerability.cvssScore.reporter.name": "nvd",
+  "vulnerability.cvssScore.reporter.url": "https://nvd.nist.gov/vuln/detail/CVE-2022-1587",
+  "vulnerability.cvssScore.value.score": 9.1,
+  "vulnerability.cvssScore.value.vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H",
+  "vulnerability.cvssScore.value.version": "3.1",
+  "vulnerability.description": "test",
+  "vulnerability.disclosureDate": 1648252800000,
+  "vulnerability.exploit": "",
+  "vulnerability.exploitable": false,
+  "vulnerability.name": "CVE-2022-1587",
+  "vulnerability.severity.reporter.name": "nvd",
+  "vulnerability.severity.reporter.url": "https://nvd.nist.gov/vuln/detail/CVE-2022-1587",
+  "vulnerability.severity.value": 2,
+  "vulnerability.solutionDate": 1649980800000,
+}
+`;

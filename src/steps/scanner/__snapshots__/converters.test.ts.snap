@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createScannerEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Service",
+  ],
+  "_key": "sysdig_scanner:Sysdig Scanner",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "name": "Sysdig Scanner",
+      },
+    },
+  ],
+  "_type": "sysdig_scanner",
+  "category": Array [
+    "image",
+  ],
+  "createdOn": undefined,
+  "displayName": "Sysdig Scanner",
+  "function": Array [
+    "scanning",
+  ],
+  "name": "Sysdig Scanner",
+}
+`;

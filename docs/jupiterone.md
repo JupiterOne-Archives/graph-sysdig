@@ -2,14 +2,14 @@
 
 ## Sysdig + JupiterOne Integration Benefits
 
-- Visualize Sysdig account, teams, and users in the JupiterOne graph.
+- Visualize Sysdig account, teams, users and findings in the JupiterOne graph.
 - See relationships between Sysdig teams and users in your JupiterOne account.
 - Monitor changes to Sysdig users using JupiterOne alerts.
 
 ## How it Works
 
-- JupiterOne periodically fetches account details, teams, and users from Sysdig
-  to update the graph.
+- JupiterOne periodically fetches account details, teams, users and findings
+  from Sysdig to update the graph.
 - Write JupiterOne queries to review and monitor updates to the graph, or
   leverage existing queries.
 - Configure alerts to take action when JupiterOne graph changes, or leverage
@@ -84,7 +84,9 @@ The following entities are created:
 | Resources  | Entity `_type`      | Entity `_class` |
 | ---------- | ------------------- | --------------- |
 | Account    | `sysdig_account`    | `Account`       |
+| Finding    | `sysdig_finding`    | `Finding`       |
 | Image Scan | `sysdig_image_scan` | `Assessment`    |
+| Scanner    | `sysdig_scanner`    | `Service`       |
 | Team       | `sysdig_team`       | `Team`          |
 | User       | `sysdig_user`       | `User`          |
 
@@ -95,9 +97,20 @@ The following relationships are created:
 | Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
 | --------------------- | --------------------- | --------------------- |
 | `sysdig_account`      | **HAS**               | `sysdig_image_scan`   |
+| `sysdig_account`      | **HAS**               | `sysdig_scanner`      |
 | `sysdig_account`      | **HAS**               | `sysdig_team`         |
 | `sysdig_account`      | **HAS**               | `sysdig_user`         |
+| `sysdig_image_scan`   | **IDENTIFIED**        | `sysdig_finding`      |
+| `sysdig_scanner`      | **PERFORMED**         | `sysdig_image_scan`   |
 | `sysdig_team`         | **HAS**               | `sysdig_user`         |
+
+### Mapped Relationships
+
+The following mapped relationships are created:
+
+| Source Entity `_type` | Relationship `_class` | Target Entity `_type` | Direction |
+| --------------------- | --------------------- | --------------------- | --------- |
+| `sysdig_finding`      | **IS**                | `*cve*`               | FORWARD   |
 
 <!--
 ********************************************************************************
