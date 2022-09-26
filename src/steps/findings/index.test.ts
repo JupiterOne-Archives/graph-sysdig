@@ -11,8 +11,6 @@ import {
   Steps,
 } from '../constants';
 
-jest.setTimeout(500000);
-
 let recording: Recording;
 
 afterEach(async () => {

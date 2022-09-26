@@ -24,8 +24,8 @@ export const findingsSpec: StepSpec<IntegrationConfig>[] = [
         targetType: 'sysdig_finding',
       },
       {
-        _type: 'sysdig_account_has_policy',
-        sourceType: 'sysdig_finding_is_cve',
+        _type: 'sysdig_finding_is_cve',
+        sourceType: 'sysdig_finding',
         _class: RelationshipClass.IS,
         targetType: 'cve',
       },
