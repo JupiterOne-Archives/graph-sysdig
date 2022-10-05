@@ -13,6 +13,8 @@ export function setupProjectRecording(input: SetupRecordingInput): Recording {
     ...input,
     options: {
       matchRequestsBy: {
+        headers: false,
+        body: false,
         url: {
           hostname: false,
         },
