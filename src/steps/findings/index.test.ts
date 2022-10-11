@@ -13,6 +13,8 @@ import {
 
 let recording: Recording;
 
+jest.setTimeout(50000000);
+
 afterEach(async () => {
   await recording.stop();
 });
