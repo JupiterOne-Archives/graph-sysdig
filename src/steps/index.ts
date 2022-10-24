@@ -4,6 +4,8 @@ import { teamsSteps } from './teams';
 import { scansSteps } from './scans';
 import { findingsSteps } from './findings';
 import { scannerSteps } from './scanner';
+import { clusterSteps } from './clusters';
+import { agentSteps } from './agents';
 
 const integrationSteps = [
   ...accountSteps,
@@ -12,6 +14,8 @@ const integrationSteps = [
   ...scansSteps,
   ...findingsSteps,
   ...scannerSteps,
+  ...clusterSteps,
+  ...agentSteps,
 ];
 
 export { integrationSteps };

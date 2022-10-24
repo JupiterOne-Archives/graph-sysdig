@@ -84,6 +84,8 @@ The following entities are created:
 | Resources  | Entity `_type`      | Entity `_class` |
 | ---------- | ------------------- | --------------- |
 | Account    | `sysdig_account`    | `Account`       |
+| Agent      | `sysdig_agent`      | `Scanner`       |
+| Cluster    | `sysdig_cluster`    | `Cluster`       |
 | Finding    | `sysdig_finding`    | `Finding`       |
 | Image Scan | `sysdig_image_scan` | `Assessment`    |
 | Scanner    | `sysdig_scanner`    | `Service`       |
@@ -96,10 +98,13 @@ The following relationships are created:
 
 | Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
 | --------------------- | --------------------- | --------------------- |
+| `sysdig_account`      | **HAS**               | `sysdig_agent`        |
+| `sysdig_account`      | **HAS**               | `sysdig_cluster`      |
 | `sysdig_account`      | **HAS**               | `sysdig_image_scan`   |
 | `sysdig_account`      | **HAS**               | `sysdig_scanner`      |
 | `sysdig_account`      | **HAS**               | `sysdig_team`         |
 | `sysdig_account`      | **HAS**               | `sysdig_user`         |
+| `sysdig_agent`        | **SCANS**             | `sysdig_cluster`      |
 | `sysdig_image_scan`   | **IDENTIFIED**        | `sysdig_finding`      |
 | `sysdig_scanner`      | **PERFORMED**         | `sysdig_image_scan`   |
 | `sysdig_team`         | **HAS**               | `sysdig_user`         |

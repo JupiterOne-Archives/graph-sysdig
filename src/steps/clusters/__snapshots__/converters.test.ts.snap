@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createClusterEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Cluster",
+  ],
+  "_key": "sysdig-cluster:gcp-sysdig-cluster",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "accountID": "30521231234",
+        "agentConnected": false,
+        "clusterResourceGroup": "",
+        "createdAt": "2002-10-22T09:22:26Z",
+        "customerID": 123456,
+        "name": "sysdig-cluster",
+        "nodeCount": 1,
+        "provider": "gcp",
+        "region": "us-central1",
+        "version": "1.23.8-gke.1900",
+        "zone": "us-central1-c",
+      },
+    },
+  ],
+  "_type": "sysdig_cluster",
+  "accountId": "30521231234",
+  "agentConnected": false,
+  "clusterResourceGroup": "",
+  "createdOn": 1035278546000,
+  "customerId": 123456,
+  "displayName": "sysdig-cluster",
+  "name": "sysdig-cluster",
+  "nodeCount": 1,
+  "provider": "gcp",
+  "region": "us-central1",
+  "version": "1.23.8-gke.1900",
+  "zone": "us-central1-c",
+}
+`;

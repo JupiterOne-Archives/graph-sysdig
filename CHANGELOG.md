@@ -8,6 +8,21 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Added support for ingesting the following **new** entities:
+
+| Resources | Entity `_type`   | Entity `_class` |
+| --------- | ---------------- | --------------- |
+| Agent     | `sysdig_agent`   | `Scanner`       |
+| Cluster   | `sysdig_cluster` | `Cluster`       |
+
+- Added support for ingesting the following **new** relationships:
+
+| Source Entity `_type` | Relationship `_class` | Target Entity `_type` |
+| --------------------- | --------------------- | --------------------- |
+| `sysdig_agent`        | **SCANS**             | `sysdig_cluster`      |
+
 ## 1.0.1 - 2022-11-14
 
 ### Fixed
@@ -31,6 +46,8 @@ and this project adheres to
 | --------- | ---------------- | --------------- |
 | Finding   | `sysdig_finding` | `Finding`       |
 | Scanner   | `sysdig_scanner` | `Service`       |
+| Agent     | `sysdig_agent`   | `Scanner`       |
+| Cluster   | `sysdig_cluster` | `Cluster`       |
 
 - Added support for ingesting the following **new** relationships:
 
@@ -38,6 +55,7 @@ and this project adheres to
 | --------------------- | --------------------- | --------------------- |
 | `sysdig_image_scan`   | **IDENTIFIED**        | `sysdig_finding`      |
 | `sysdig_scanner`      | **PERFORMED**         | `sysdig_image_scan`   |
+| `sysdig_agent`        | **SCANS**             | `sysdig_cluster`      |
 
 - Added support for ingesting the following **new** mapped relationships:
 

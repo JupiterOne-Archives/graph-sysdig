@@ -9,17 +9,28 @@ import {
 export const Steps = {
   ACCOUNT: 'fetch-account',
   USERS: 'fetch-users',
+  CLUSTERS: 'fetch-clusters',
+  AGENTS: 'fetch-agents',
   TEAMS: 'fetch-teams',
   IMAGE_SCANS: 'fetch-image-scans',
   SCANNER: 'fetch-scanner-details',
   FINDINGS: 'fetch-findings',
   BUILD_TEAM_AND_USER_RELATIONSHIP: 'build-team-and-user-relationship',
+  BUILD_CLUSTER_AGENT_RELATIONSHIP: 'build-cluster-and-agent-relationship',
   BUILD_SCANNER_AND_IMAGE_SCAN_RELATIONSHIP:
     'build-scanner-and-image-scan-relationship',
 };
 
 export const Entities: Record<
-  'ACCOUNT' | 'USER' | 'TEAM' | 'IMAGE_SCAN' | 'SCANNER' | 'FINDING' | 'CVE',
+  | 'ACCOUNT'
+  | 'USER'
+  | 'TEAM'
+  | 'IMAGE_SCAN'
+  | 'SCANNER'
+  | 'FINDING'
+  | 'CVE'
+  | 'CLUSTER'
+  | 'AGENT',
   StepEntityMetadata
 > = {
   ACCOUNT: {
@@ -57,6 +68,16 @@ export const Entities: Record<
     _type: 'cve',
     _class: ['Vulnerability'],
   },
+  CLUSTER: {
+    resourceName: 'Cluster',
+    _type: 'sysdig_cluster',
+    _class: ['Cluster'],
+  },
+  AGENT: {
+    resourceName: 'Agent',
+    _type: 'sysdig_agent',
+    _class: ['Scanner'],
+  },
 };
 
 export const MappedRelationships: Record<
@@ -76,6 +97,9 @@ export const Relationships: Record<
   | 'ACCOUNT_HAS_USER'
   | 'ACCOUNT_HAS_TEAM'
   | 'ACCOUNT_HAS_SCANNER'
+  | 'ACCOUNT_HAS_AGENT'
+  | 'ACCOUNT_HAS_CLUSTER'
+  | 'AGENT_SCANS_CLUSTER'
   | 'ACCOUNT_HAS_IMAGE_SCAN'
   | 'TEAM_HAS_USER'
   | 'SCANNER_PERFORMED_IMAGE_SCAN'
@@ -99,6 +123,24 @@ export const Relationships: Record<
     sourceType: Entities.ACCOUNT._type,
     _class: RelationshipClass.HAS,
     targetType: Entities.SCANNER._type,
+  },
+  ACCOUNT_HAS_AGENT: {
+    _type: 'sysdig_account_has_agent',
+    sourceType: Entities.ACCOUNT._type,
+    _class: RelationshipClass.HAS,
+    targetType: Entities.AGENT._type,
+  },
+  ACCOUNT_HAS_CLUSTER: {
+    _type: 'sysdig_account_has_cluster',
+    sourceType: Entities.ACCOUNT._type,
+    _class: RelationshipClass.HAS,
+    targetType: Entities.CLUSTER._type,
+  },
+  AGENT_SCANS_CLUSTER: {
+    _type: 'sysdig_agent_scans_cluster',
+    sourceType: Entities.AGENT._type,
+    _class: RelationshipClass.SCANS,
+    targetType: Entities.CLUSTER._type,
   },
   TEAM_HAS_USER: {
     _type: 'sysdig_team_has_user',

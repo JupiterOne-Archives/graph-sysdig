@@ -278,3 +278,38 @@ export type Predicate = {
   type: string;
   extra?: any;
 };
+
+export type SysdigCluster = {
+  customerID: number;
+  accountID: string;
+  provider: string;
+  name: string;
+  region: string;
+  zone: string;
+  agentConnected: boolean;
+  createdAt: string;
+  nodeCount: number;
+  clusterResourceGroup: string;
+  version: string;
+  agentConnectString: string;
+};
+
+export type SysdigAgent = {
+  agentStatus: string;
+  agentIssues: {
+    reason: string;
+    status: string;
+    explanation: string;
+    fix: string;
+  }[];
+  clusterName: string;
+  labels: {
+    accountId: string;
+    hostname: string;
+    machineId: string;
+    provider: string;
+  };
+  moreOptions: {
+    agentConnectString: string;
+  };
+};
