@@ -19,6 +19,7 @@ export function setupProjectRecording(input: SetupRecordingInput): Recording {
           hostname: false,
         },
       },
+      logLevel: 'debug',
     },
   });
 }
