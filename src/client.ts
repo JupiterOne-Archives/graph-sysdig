@@ -78,6 +78,7 @@ export class APIClient {
       );
       return response;
     } catch (err) {
+      console.error(JSON.stringify(err));
       throw new IntegrationProviderAPIError({
         endpoint: uri,
         status: err.status,
