@@ -78,6 +78,7 @@ export class APIClient {
       );
       return response;
     } catch (err) {
+      //eslint-disable-next-line
       console.error(JSON.stringify(err));
       throw new IntegrationProviderAPIError({
         endpoint: uri,
