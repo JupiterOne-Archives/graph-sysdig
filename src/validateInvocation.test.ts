@@ -25,6 +25,7 @@ it('auth error', async () => {
   });
 
   recording.server.any().intercept((req, res) => {
+    console.log('about to intercept and send 401');
     res.status(401);
   });
 
