@@ -4,38 +4,48 @@ import {
 } from '@jupiterone/integration-sdk-core';
 import {
   createMockExecutionContext,
+  Recording,
   setupRecording,
 } from '@jupiterone/integration-sdk-testing';
 import { IntegrationConfig, validateInvocation } from './config';
 
-it('requires valid config', async () => {
-  const executionContext = createMockExecutionContext<IntegrationConfig>({
-    instanceConfig: {} as IntegrationConfig,
+describe('validateInvocation', () => {
+  let recording: Recording;
+
+  afterEach(async () => {
+    if (recording) {
+      await recording.stop();
+    }
   });
 
-  await expect(validateInvocation(executionContext)).rejects.toThrow(
-    IntegrationValidationError,
-  );
-});
+  test('requires valid config', async () => {
+    const executionContext = createMockExecutionContext<IntegrationConfig>({
+      instanceConfig: {} as IntegrationConfig,
+    });
 
-it('auth error', async () => {
-  const recording = setupRecording({
-    directory: '__recordings__',
-    name: 'client-auth-error',
+    await expect(validateInvocation(executionContext)).rejects.toThrow(
+      IntegrationValidationError,
+    );
   });
 
-  recording.server.any().intercept((req, res) => {
-    res.status(401);
-  });
+  test('auth error', async () => {
+    recording = setupRecording({
+      directory: __dirname,
+      name: 'client-auth-error',
+      options: {
+        recordFailedRequests: true,
+      },
+    });
 
-  const executionContext = createMockExecutionContext({
-    instanceConfig: {
-      apiToken: 'INVALID',
-      region: 'INVALID',
-    },
-  });
+    const executionContext = createMockExecutionContext({
+      instanceConfig: {
+        apiToken: 'INVALID',
+        region: 'us4',
+      },
+    });
 
-  await expect(validateInvocation(executionContext)).rejects.toThrow(
-    IntegrationProviderAuthenticationError,
-  );
+    await expect(validateInvocation(executionContext)).rejects.toThrow(
+      IntegrationProviderAuthenticationError,
+    );
+  });
 });
