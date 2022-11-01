@@ -17,31 +17,18 @@ export async function fetchTeams({
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
   const apiClient = createAPIClient(instance.config);
-
-  await apiClient.iterateTeams(async (team) => {
-    await jobState.addEntity(createTeamEntity(team));
-  });
-}
-
-export async function buildAccountAndTeamsRelationship({
-  jobState,
-}: IntegrationStepExecutionContext<IntegrationConfig>) {
   const accountEntity = (await jobState.getData(ACCOUNT_ENTITY_KEY)) as Entity;
 
-  await jobState.iterateEntities(
-    { _type: Entities.TEAM._type },
-    async (teamEntity) => {
-      if (accountEntity && teamEntity) {
-        await jobState.addRelationship(
-          createDirectRelationship({
-            _class: RelationshipClass.HAS,
-            from: accountEntity,
-            to: teamEntity,
-          }),
-        );
-      }
-    },
-  );
+  await apiClient.iterateTeams(async (team) => {
+    const teamEntity = await jobState.addEntity(createTeamEntity(team));
+    await jobState.addRelationship(
+      createDirectRelationship({
+        _class: RelationshipClass.HAS,
+        from: accountEntity,
+        to: teamEntity,
+      }),
+    );
+  });
 }
 
 export async function buildTeamAndUsersRelationship({
@@ -79,17 +66,9 @@ export const teamsSteps: IntegrationStep<IntegrationConfig>[] = [
     id: Steps.TEAMS,
     name: 'Fetch Teams',
     entities: [Entities.TEAM],
-    relationships: [],
-    dependsOn: [],
-    executionHandler: fetchTeams,
-  },
-  {
-    id: Steps.BUILD_ACCOUNT_AND_TEAM_RELATIONSHIP,
-    name: 'Build Account and Team Relationship',
-    entities: [],
     relationships: [Relationships.ACCOUNT_HAS_TEAM],
-    dependsOn: [Steps.TEAMS, Steps.ACCOUNT],
-    executionHandler: buildAccountAndTeamsRelationship,
+    dependsOn: [Steps.ACCOUNT],
+    executionHandler: fetchTeams,
   },
   {
     id: Steps.BUILD_TEAM_AND_USER_RELATIONSHIP,

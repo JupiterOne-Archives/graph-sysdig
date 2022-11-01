@@ -1,8 +1,8 @@
-import { getMockImageScan } from '../../../test/mocks';
-import { createImageScanEntity } from './converter';
+import { getMockImageScanV2 } from '../../../test/mocks';
+import { createImageScanEntityV2 } from './converter';
 
 describe('#createImageScanEntity', () => {
   test('should convert to entity', () => {
-    expect(createImageScanEntity(getMockImageScan())).toMatchSnapshot();
+    expect(createImageScanEntityV2(getMockImageScanV2())).toMatchSnapshot();
   });
 });

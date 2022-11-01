@@ -1,7 +1,6 @@
 import {
   createIntegrationEntity,
   Entity,
-  parseTimePropertyValue,
 } from '@jupiterone/integration-sdk-core';
 import { SysdigTeam } from '../../types';
 
@@ -21,8 +20,8 @@ export function createTeamEntity(data: SysdigTeam): Entity {
         _class: Entities.TEAM._class,
         id: data.id.toString(),
         version: data.version,
-        createdOn: parseTimePropertyValue(data.dateCreated),
-        updatedOn: parseTimePropertyValue(data.lastUpdated),
+        createdOn: data.dateCreated,
+        updatedOn: data.lastUpdated,
         customerId: data.customerId,
         immutable: data.immutable,
         name: data.name,

@@ -7,12 +7,14 @@ import {
 
 export { Recording };
 
-export function setupSysdigRecording(input: SetupRecordingInput): Recording {
+export function setupProjectRecording(input: SetupRecordingInput): Recording {
   return setupRecording({
     mutateEntry: mutations.unzipGzippedRecordingEntry,
     ...input,
     options: {
       matchRequestsBy: {
+        headers: false,
+        body: false,
         url: {
           hostname: false,
         },

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#fetchFindings 1`] = `
+Array [
+  "sysdig_account",
+  "sysdig_image_scan",
+  "sysdig_account_has_image_scan",
+  "sysdig_finding",
+  "sysdig_image_scan_identified_finding",
+  "sysdig_finding_is_cve",
+]
+`;
