@@ -8,6 +8,11 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed issue related to `fixablePackages` property on the `sysdig_image_scan`
+  entity.
+
 ## 1.0.0 - 2022-11-01
 
 ### Added
