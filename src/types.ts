@@ -144,7 +144,15 @@ export type ImageScanV2 = {
   }[];
   packageCount: number;
   packageTypes: string[];
-  fixablePackages: any[];
+  fixablePackages?: {
+    id: string;
+    type: string;
+    name: string;
+    version: string;
+    vulnsBySev: any[];
+    exploitCount: number;
+    suggestedFix: string;
+  }[];
   runningFixablePackages: any;
   policyEvaluations: PolicyEvaluation[];
   isEVEEnabled: boolean;
