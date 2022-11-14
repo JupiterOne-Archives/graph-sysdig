@@ -74,7 +74,7 @@ export function createImageScanEntityV2(data: ImageScanV2): Entity {
         vulnsBySev,
         packageCount: data.packageCount,
         packageTypes: data.packageTypes,
-        fixablePackages: data.fixablePackages.map(
+        fixablePackages: data.fixablePackages?.map(
           (fixablePackage) =>
             `${fixablePackage.name}[${fixablePackage.version}]`,
         ),

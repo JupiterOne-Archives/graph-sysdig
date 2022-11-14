@@ -144,7 +144,7 @@ export type ImageScanV2 = {
   }[];
   packageCount: number;
   packageTypes: string[];
-  fixablePackages: {
+  fixablePackages?: {
     id: string;
     type: string;
     name: string;
