@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.0.1 - 2022-11-14
+
 ### Fixed
 
 - Fixed issue related to `fixablePackages` property on the `sysdig_image_scan`
