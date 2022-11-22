@@ -3,6 +3,8 @@ import {
   Policy,
   PolicyEvaluation,
   SysdigAccount,
+  SysdigAgent,
+  SysdigCluster,
   SysdigResult,
   SysdigTeam,
   SysdigUser,
@@ -259,6 +261,51 @@ export function getMockPolicy(partial?: Partial<Policy>): Policy {
     bundles: [],
     creationTimestamp: '2022-09-02T11:58:59.03062Z',
     updateTimestamp: '2022-09-02T11:58:59.03062Z',
+    ...partial,
+  };
+}
+
+export function getMockCluster(
+  partial?: Partial<SysdigCluster>,
+): SysdigCluster {
+  return {
+    customerID: 123456,
+    accountID: '30521231234',
+    provider: 'gcp',
+    name: 'sysdig-cluster',
+    region: 'us-central1',
+    zone: 'us-central1-c',
+    agentConnected: false,
+    createdAt: '2002-10-22T09:22:26Z',
+    nodeCount: 1,
+    clusterResourceGroup: '',
+    version: '1.23.8-gke.1900',
+    agentConnectString: 'connect string',
+    ...partial,
+  };
+}
+
+export function getMockAgent(partial?: Partial<SysdigAgent>): SysdigAgent {
+  return {
+    agentStatus: 'Never Connected',
+    agentIssues: [
+      {
+        reason: 'Never Connected',
+        status: 'Never Connected',
+        explanation: 'Agent was never connected.',
+        fix: 'review agent logs and/or network connectivity',
+      },
+    ],
+    clusterName: 'sysdig-cluster',
+    labels: {
+      accountId: '1234567890',
+      hostname: 'gke-sysdig-cluster-default-pool-12345678-6l1s',
+      machineId: '',
+      provider: 'gcp',
+    },
+    moreOptions: {
+      agentConnectString: 'agent connect string',
+    },
     ...partial,
   };
 }

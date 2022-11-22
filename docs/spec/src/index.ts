@@ -2,6 +2,8 @@ import { IntegrationSpecConfig } from '@jupiterone/integration-sdk-core';
 
 import { IntegrationConfig } from '../../../src/config';
 import { accountSpec } from './account';
+import { agentSpec } from './agents';
+import { clusterSpec } from './clusters';
 import { scannerSpec } from './scanner';
 import { scansSpec } from './scans';
 import { teamsSpec } from './teams';
@@ -14,5 +16,7 @@ export const invocationConfig: IntegrationSpecConfig<IntegrationConfig> = {
     ...scansSpec,
     ...teamsSpec,
     ...usersSpec,
+    ...agentSpec,
+    ...clusterSpec,
   ],
 };

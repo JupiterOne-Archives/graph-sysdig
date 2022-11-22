@@ -13,6 +13,8 @@ import {
   PaginatedUsers,
   PaginatedVulnerabilities,
   SysdigAccount,
+  SysdigAgent,
+  SysdigCluster,
   SysdigResult,
   SysdigResultResponse,
   SysdigTeam,
@@ -192,6 +194,44 @@ export class APIClient {
         }
       }
     } while ((offset + 1) * this.paginateEntitiesPerPage < body.metadata.total);
+  }
+
+  /**
+   * Iterates each cluster resource in the provider.
+   *
+   * @param pageIteratee receives each resource to produce entities/relationships
+   */
+  public async iterateClusters(
+    pageIteratee: ResourceIteratee<SysdigCluster>,
+  ): Promise<void> {
+    const endpoint = this.withBaseUri(`api/cloud/v2/dataSources/clusters`);
+    const response = await this.request(endpoint, 'GET');
+    const clusters = await response.json();
+
+    if (clusters) {
+      for (const cluster of clusters) {
+        await pageIteratee(cluster);
+      }
+    }
+  }
+
+  /**
+   * Iterates each cluster resource in the provider.
+   *
+   * @param pageIteratee receives each resource to produce entities/relationships
+   */
+  public async iterateAgents(
+    pageIteratee: ResourceIteratee<SysdigAgent>,
+  ): Promise<void> {
+    const endpoint = this.withBaseUri(`api/cloud/v2/dataSources/agents`);
+    const response = await this.request(endpoint, 'GET');
+    const body = await response.json();
+
+    if (body.details) {
+      for (const agent of body.details) {
+        await pageIteratee(agent);
+      }
+    }
   }
 
   /**

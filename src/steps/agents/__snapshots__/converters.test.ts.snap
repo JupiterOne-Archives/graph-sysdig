@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#createAgentEntity should convert to entity 1`] = `
+Object {
+  "_class": Array [
+    "Scanner",
+  ],
+  "_key": "sysdig-agent:gcp-gke-sysdig-cluster-default-pool-12345678-6l1s",
+  "_rawData": Array [
+    Object {
+      "name": "default",
+      "rawData": Object {
+        "agentIssues": Array [
+          Object {
+            "explanation": "Agent was never connected.",
+            "fix": "review agent logs and/or network connectivity",
+            "reason": "Never Connected",
+            "status": "Never Connected",
+          },
+        ],
+        "agentStatus": "Never Connected",
+        "clusterName": "sysdig-cluster",
+        "labels": Object {
+          "accountId": "1234567890",
+          "hostname": "gke-sysdig-cluster-default-pool-12345678-6l1s",
+          "machineId": "",
+          "provider": "gcp",
+        },
+        "moreOptions": Object {
+          "agentConnectString": "agent connect string",
+        },
+      },
+    },
+  ],
+  "_type": "sysdig_agent",
+  "accountId": "1234567890",
+  "agentConnectString": "agent connect string",
+  "agentStatus": "Never Connected",
+  "category": Array [
+    "application",
+  ],
+  "clusterName": "sysdig-cluster",
+  "createdOn": undefined,
+  "displayName": "gke-sysdig-cluster-default-pool-12345678-6l1s",
+  "hostname": "gke-sysdig-cluster-default-pool-12345678-6l1s",
+  "machineId": "",
+  "name": "gke-sysdig-cluster-default-pool-12345678-6l1s",
+  "provider": "gcp",
+}
+`;
