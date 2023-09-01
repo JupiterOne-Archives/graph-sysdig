@@ -32,9 +32,9 @@ export class APIClient {
   constructor(readonly config: IntegrationConfig, logger: IntegrationLogger) {
     this.logger = logger;
     if (URL_FORMAT.REGION_APP.includes(config.region)) {
-      this.baseUri = `http://${this.config.region}.app.sysdig.com`;
+      this.baseUri = `https://${this.config.region}.app.sysdig.com`;
     } else {
-      this.baseUri = `http://app.${this.config.region}.sysdig.com`;
+      this.baseUri = `https://app.${this.config.region}.sysdig.com`;
     }
   }
 
