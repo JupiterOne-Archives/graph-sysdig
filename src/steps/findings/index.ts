@@ -17,9 +17,10 @@ import { createFindingCveRelationship, createFindingEntity } from './converter';
 
 export async function fetchFindings({
   instance,
+  logger,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
-  const apiClient = createAPIClient(instance.config);
+  const apiClient = createAPIClient(instance.config, logger);
 
   await jobState.iterateEntities(
     { _type: Entities.IMAGE_SCAN._type },

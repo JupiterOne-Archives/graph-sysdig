@@ -1,7 +1,7 @@
 import fetch, { Response } from 'node-fetch';
-import { retry } from '@lifeomic/attempt';
+import { retry, sleep } from '@lifeomic/attempt';
 import {
-  IntegrationProviderAPIError,
+  IntegrationLogger,
   IntegrationProviderAuthenticationError,
 } from '@jupiterone/integration-sdk-core';
 
@@ -22,15 +22,19 @@ import {
   VulnerablePackage,
 } from './types';
 import { URL_FORMAT } from './regions';
+import { fatalRequestError, retryableRequestError } from './error';
 
 export type ResourceIteratee<T> = (page: T) => Promise<void>;
 
 export class APIClient {
-  constructor(readonly config: IntegrationConfig) {
+  private readonly logger: IntegrationLogger;
+
+  constructor(readonly config: IntegrationConfig, logger: IntegrationLogger) {
+    this.logger = logger;
     if (URL_FORMAT.REGION_APP.includes(config.region)) {
-      this.baseUri = `https://${this.config.region}.app.sysdig.com`;
+      this.baseUri = `http://${this.config.region}.app.sysdig.com`;
     } else {
-      this.baseUri = `https://app.${this.config.region}.sysdig.com`;
+      this.baseUri = `http://app.${this.config.region}.sysdig.com`;
     }
   }
 
@@ -40,58 +44,86 @@ export class APIClient {
     return `${this.baseUri}/${path}`;
   }
 
-  private checkStatus = (response: Response) => {
-    if (response.ok) {
-      return response;
-    } else {
-      throw new IntegrationProviderAPIError(response);
-    }
-  };
-
   private async request(
     uri: string,
     method: 'GET' | 'HEAD' = 'GET',
   ): Promise<Response> {
-    try {
-      // Handle rate-limiting
-      const response = await retry(
-        async () => {
-          const res: Response = await fetch(uri, {
-            method,
-            headers: {
-              Authorization: `Bearer ${this.config.apiToken}`,
-              Accept: 'application/json',
-            },
-          });
-          return this.checkStatus(res);
+    const response = await fetch(uri, {
+      method,
+      headers: {
+        Authorization: `Bearer ${this.config.apiToken}`,
+        Accept: 'application/json',
+      },
+    });
+    return response;
+  }
+
+  private async retryRequest(
+    url: string,
+    method: 'GET' | 'HEAD' = 'GET',
+  ): Promise<Response> {
+    return retry(
+      async () => {
+        let response: Response | undefined;
+        try {
+          response = await this.request(url, method);
+        } catch (err) {
+          this.logger.info(
+            { code: err.code, err, url },
+            'Error sending request',
+          );
+          throw err;
+        }
+
+        if (response.ok) {
+          return response;
+        }
+
+        try {
+          const errorBody: { status?: number; message?: string } =
+            await response.json();
+          const message = errorBody.message;
+          this.logger.info(
+            { errMessage: message },
+            'Encountered error from API',
+          );
+        } catch (e) {
+          // pass
+        }
+
+        if (isRetryableRequest(response)) {
+          throw retryableRequestError(url, response);
+        } else {
+          throw fatalRequestError(url, response);
+        }
+      },
+      {
+        delay: 5000,
+        maxAttempts: 10,
+        handleError: async (err, context) => {
+          if (!err.retryable) {
+            // can't retry this? just abort
+            context.abort();
+            return;
+          }
+
+          if (err.status === 429) {
+            const retryAfter = err.retryAfter ? err.retryAfter * 1000 : 5000;
+            this.logger.info(
+              { retryAfter },
+              `Received a rate limit error.  Waiting before retrying.`,
+            );
+            await sleep(retryAfter);
+          }
         },
-        {
-          delay: 5000,
-          maxAttempts: 10,
-          handleError: (err, context) => {
-            if (
-              err.statusCode !== 429 ||
-              ([500, 502, 503].includes(err.statusCode) &&
-                context.attemptNum > 1)
-            )
-              context.abort();
-          },
-        },
-      );
-      return response;
-    } catch (err) {
-      throw new IntegrationProviderAPIError({
-        endpoint: uri,
-        status: err.status,
-        statusText: err.statusText,
-      });
-    }
+      },
+    );
   }
 
   public async verifyAuthentication(): Promise<void> {
     const statusRoute = this.withBaseUri('api/benchmarks/v2/status');
     try {
-      await this.request(statusRoute, 'GET');
+      await this.retryRequest(statusRoute, 'GET');
     } catch (err) {
       throw new IntegrationProviderAuthenticationError({
         endpoint: statusRoute,
@@ -102,13 +134,16 @@ export class APIClient {
   }
 
   public async getCurrentUser(): Promise<SysdigAccount> {
-    const response = await this.request(this.withBaseUri(`api/user/me`), 'GET');
+    const response = await this.retryRequest(
+      this.withBaseUri(`api/user/me`),
+      'GET',
+    );
     const userResponse = await response.json();
     return userResponse.user;
   }
 
   public async getUserById(userId: string): Promise<SysdigAccount> {
-    const response = await this.request(
+    const response = await this.retryRequest(
       this.withBaseUri(`api/users/${userId}`),
       'GET',
     );
@@ -132,7 +167,7 @@ export class APIClient {
       const endpoint = this.withBaseUri(
         `api/v2/users/light?limit=${this.paginateEntitiesPerPage}&offset=${offset}`,
       );
-      const response = await this.request(endpoint, 'GET');
+      const response = await this.retryRequest(endpoint, 'GET');
 
       body = await response.json();
 
@@ -158,7 +193,7 @@ export class APIClient {
       const endpoint = this.withBaseUri(
         `api/v2/teams/light?limit=${this.paginateEntitiesPerPage}&offset=${offset}`,
       );
-      const response = await this.request(endpoint, 'GET');
+      const response = await this.retryRequest(endpoint, 'GET');
 
       body = await response.json();
 
@@ -184,7 +219,7 @@ export class APIClient {
       const endpoint = this.withBaseUri(
         `api/scanning/v1/resultsDirect?limit=${this.paginateEntitiesPerPage}&offset=${offset}`,
       );
-      const response = await this.request(endpoint, 'GET');
+      const response = await this.retryRequest(endpoint, 'GET');
 
       body = await response.json();
 
@@ -205,7 +240,7 @@ export class APIClient {
     pageIteratee: ResourceIteratee<SysdigCluster>,
   ): Promise<void> {
     const endpoint = this.withBaseUri(`api/cloud/v2/dataSources/clusters`);
-    const response = await this.request(endpoint, 'GET');
+    const response = await this.retryRequest(endpoint, 'GET');
     const clusters = await response.json();
 
     if (clusters) {
@@ -224,7 +259,7 @@ export class APIClient {
     pageIteratee: ResourceIteratee<SysdigAgent>,
   ): Promise<void> {
     const endpoint = this.withBaseUri(`api/cloud/v2/dataSources/agents`);
-    const response = await this.request(endpoint, 'GET');
+    const response = await this.retryRequest(endpoint, 'GET');
     const body = await response.json();
 
     if (body.details) {
@@ -248,7 +283,7 @@ export class APIClient {
     );
 
     do {
-      const response = await this.request(endpoint, 'GET');
+      const response = await this.retryRequest(endpoint, 'GET');
 
       body = await response.json();
 
@@ -272,7 +307,7 @@ export class APIClient {
       `api/scanning/scanresults/v2/results/${imageId}`,
     );
 
-    const response = await this.request(endpoint, 'GET');
+    const response = await this.retryRequest(endpoint, 'GET');
     const body = await response.json();
     return body;
   }
@@ -296,7 +331,7 @@ export class APIClient {
       const endpoint = this.withBaseUri(
         `api/scanning/scanresults/v2/results/${imageId}/vulnPkgs?limit=${this.paginateEntitiesPerPage}&offset=${offset}`,
       );
-      const response = await this.request(endpoint, 'GET');
+      const response = await this.retryRequest(endpoint, 'GET');
 
       body = await response.json();
 
@@ -319,12 +354,27 @@ export class APIClient {
       `api/scanning/scanresults/v2/results/${imageId}/vulnPkgs/${findingId}`,
     );
 
-    const response = await this.request(endpoint, 'GET');
+    const response = await this.retryRequest(endpoint, 'GET');
     const body = response.json();
     return body;
   }
 }
 
-export function createAPIClient(config: IntegrationConfig): APIClient {
-  return new APIClient(config);
+/**
+ * Function for determining if a request is retryable
+ * based on the returned status.
+ */
+function isRetryableRequest({ status }: Response): boolean {
+  return (
+    // 5xx error from provider (their fault, might be retryable)
+    // 429 === too many requests, we got rate limited so safe to try again
+    status >= 500 || status === 429
+  );
+}
+
+export function createAPIClient(
+  config: IntegrationConfig,
+  logger: IntegrationLogger,
+): APIClient {
+  return new APIClient(config, logger);
 }

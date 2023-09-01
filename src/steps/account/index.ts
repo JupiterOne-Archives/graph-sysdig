@@ -12,9 +12,10 @@ export const ACCOUNT_ENTITY_KEY = 'entity:account';
 
 export async function fetchAccountDetails({
   instance,
+  logger,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
-  const apiClient = createAPIClient(instance.config);
+  const apiClient = createAPIClient(instance.config, logger);
 
   const currentUser = await apiClient.getCurrentUser();
   const accountEntity = await jobState.addEntity(

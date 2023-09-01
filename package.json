@@ -35,7 +35,8 @@
   "devDependencies": {
     "@jupiterone/integration-sdk-core": "^8.24.1",
     "@jupiterone/integration-sdk-dev-tools": "^8.24.1",
-    "@jupiterone/integration-sdk-testing": "^8.24.1"
+    "@jupiterone/integration-sdk-testing": "^8.24.1",
+    "@types/node-fetch": "^2.6.4"
   },
   "dependencies": {
     "@lifeomic/attempt": "^3.0.2",
