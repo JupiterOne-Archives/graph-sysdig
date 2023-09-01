@@ -14,9 +14,10 @@ import { createTeamEntity, getTeamKey } from './converter';
 
 export async function fetchTeams({
   instance,
+  logger,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
-  const apiClient = createAPIClient(instance.config);
+  const apiClient = createAPIClient(instance.config, logger);
   const accountEntity = (await jobState.getData(ACCOUNT_ENTITY_KEY)) as Entity;
 
   await apiClient.iterateTeams(async (team) => {
@@ -33,9 +34,10 @@ export async function fetchTeams({
 
 export async function buildTeamAndUsersRelationship({
   instance,
+  logger,
   jobState,
 }: IntegrationStepExecutionContext<IntegrationConfig>) {
-  const apiClient = createAPIClient(instance.config);
+  const apiClient = createAPIClient(instance.config, logger);
 
   await jobState.iterateEntities(
     { _type: Entities.USER._type },
