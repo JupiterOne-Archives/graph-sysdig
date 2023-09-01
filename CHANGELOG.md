@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.1.1 - 2023-09-01
+
+### Changed
+
+- Improved error handling and logs
+
 ## 1.1.0 - 2022-12-02
 
 ### Added
