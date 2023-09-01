@@ -5,6 +5,7 @@
   "license": "MPL-2.0",
   "main": "src/index.js",
   "types": "src/index.d.ts",
+  "repository": "https://github.com/JupiterOne/graph-sysdig",
   "files": [
     "src",
     "jupiterone"
@@ -19,15 +20,16 @@
     "graph:spec": "j1-integration visualize-types --project-path docs/spec --output-file ./.j1-integration/types-graph/index.spec.html",
     "validate:questions:dry": "j1-integration validate-question-file --dry-run",
     "validate:questions": "j1-integration validate-question-file -a $MANAGED_QUESTIONS_JUPITERONE_ACCOUNT_ID -k $MANAGED_QUESTIONS_JUPITERONE_API_KEY",
+    "graph:dependencies": "j1-integration visualize-dependencies",
     "lint": "eslint . --cache --fix --ext .ts,.tsx",
-    "format": "prettier --write \"**/*.{ts,js,json,css,md,yml}\"",
-    "format:check": "prettier --check \"**/*.{ts,js,json,css,md,yml}\"",
+    "format": "prettier --write '**/*.{ts,js,json,css,md,yml}'",
+    "format:check": "prettier --check '**/*.{ts,js,json,css,md,yml}'",
     "type-check": "tsc",
     "test": "jest",
     "test:env": "LOAD_ENV=1 yarn test",
-    "test:ci": "yarn lint && yarn type-check && yarn test",
+    "test:ci": "yarn format:check && yarn lint && yarn type-check && yarn test",
     "build": "tsc -p tsconfig.dist.json --declaration && cp README.md dist/README.md && cp -r jupiterone/ dist/jupiterone/",
-    "prepush": "yarn lint && yarn type-check && jest --changedSince main"
+    "prepush": "yarn format:check && yarn lint && yarn type-check && jest --changedSince main"
   },
   "peerDependencies": {
     "@jupiterone/integration-sdk-core": "^8.24.1"
@@ -40,6 +42,23 @@
   },
   "dependencies": {
     "@lifeomic/attempt": "^3.0.2",
+    "auto": "^10.46.0",
     "node-fetch": "2.6.1"
+  },
+  "auto": {
+    "plugins": [
+      [
+        "npm",
+        {
+          "setRcToken": false,
+          "publishFolder": "./dist"
+        }
+      ],
+      "released"
+    ],
+    "onlyPublishWithReleaseLabel": true,
+    "shipit": {
+      "prerelease": false
+    }
   }
 }
