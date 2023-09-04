@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.1.3 - 2023-09-04
+
+### Changed
+
+- add headersInfo to request error log
+
 ## 1.1.2 - 2023-09-04
 
 ### Changed
