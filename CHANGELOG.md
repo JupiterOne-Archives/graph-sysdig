@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## 1.1.2 - 2023-09-04
+
+### Changed
+
+- log entire error body
+
 ## 1.1.1 - 2023-09-01
 
 ### Changed
