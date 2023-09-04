@@ -1,4 +1,4 @@
-import fetch, { Response } from 'node-fetch';
+import fetch, { Request, Response } from 'node-fetch';
 import { retry, sleep } from '@lifeomic/attempt';
 import {
   IntegrationLogger,
@@ -47,15 +47,16 @@ export class APIClient {
   private async request(
     uri: string,
     method: 'GET' | 'HEAD' = 'GET',
-  ): Promise<Response> {
-    const response = await fetch(uri, {
+  ): Promise<{ request: Request; response: Response }> {
+    const request = new Request(uri, {
       method,
       headers: {
         Authorization: `Bearer ${this.config.apiToken}`,
         Accept: 'application/json',
       },
     });
-    return response;
+    const response = await fetch(request);
+    return { request, response };
   }
 
   private async retryRequest(
@@ -64,9 +65,12 @@ export class APIClient {
   ): Promise<Response> {
     return retry(
       async () => {
+        let request: Request | undefined;
         let response: Response | undefined;
         try {
-          response = await this.request(url, method);
+          const result = await this.request(url, method);
+          request = result.request;
+          response = result.response;
         } catch (err) {
           this.logger.info(
             { code: err.code, err, url },
@@ -81,8 +85,19 @@ export class APIClient {
 
         try {
           const errorBody = await response.json();
+          // Object of headers keys with its string value length for debug purposes without exposing the raw values.
+          const headersInfo = {};
+          const requestHeaders = request.headers.raw();
+          for (const header in requestHeaders) {
+            headersInfo[header] = requestHeaders[header]
+              .map((v) => v.length)
+              .join(',');
+          }
           this.logger.info(
-            { errorBody: JSON.stringify(errorBody) },
+            {
+              errorBody: JSON.stringify(errorBody),
+              headersInfo,
+            },
             'Encountered error from API',
           );
         } catch (e) {
@@ -133,7 +148,7 @@ export class APIClient {
 
   public async getCurrentUser(): Promise<SysdigAccount> {
     const response = await this.retryRequest(
-      this.withBaseUri(`api/user/me`),
+      this.withBaseUri(`api/user/me?_product=SDC`),
       'GET',
     );
     const userResponse = await response.json();
