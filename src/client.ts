@@ -80,11 +80,9 @@ export class APIClient {
         }
 
         try {
-          const errorBody: { status?: number; message?: string } =
-            await response.json();
-          const message = errorBody.message;
+          const errorBody = await response.json();
           this.logger.info(
-            { errMessage: message },
+            { errorBody: JSON.stringify(errorBody) },
             'Encountered error from API',
           );
         } catch (e) {
