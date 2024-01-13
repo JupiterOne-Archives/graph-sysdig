@@ -11,7 +11,7 @@ export function createAgentEntity(data: SysdigAgent): Entity {
     entityData: {
       source: data,
       assign: {
-        _key: `sysdig-agent:${data.labels.provider}-${data.labels.hostname}`,
+        _key: `sysdig-agent:${data.clusterName}-${data.labels.machineId}-${data.labels.provider}-${data.labels.hostname}`,
         _type: Entities.AGENT._type,
         _class: Entities.AGENT._class,
         name: data.labels.hostname,
